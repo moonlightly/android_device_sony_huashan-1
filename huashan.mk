@@ -111,6 +111,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/system/etc/sysmon.cfg:system/etc/sysmon.cfg
 
+#Temporary Files
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/custom/system/lib/libaudiopolicymanagerdefault.so:system/lib/libaudiopolicymanagerdefault.so	
+	
 # NFC Support
 PRODUCT_PACKAGES += \
     libnfc \
