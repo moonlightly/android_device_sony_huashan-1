@@ -119,7 +119,7 @@ on boot
     chmod 2770 /dev/socket/qmux_radio
     mkdir /dev/socket/qmux_audio 0770 media audio
     chmod 2770 /dev/socket/qmux_audio
-    mkdir /dev/socket/qmux_bluetooth 0770 bluetooth net_bt_stack
+    mkdir /dev/socket/qmux_bluetooth 0770 bluetooth bluetooth
     chmod 2770 /dev/socket/qmux_bluetooth
     mkdir /dev/socket/qmux_gps 0770 gps gps
     chmod 2770 /dev/socket/qmux_gps
@@ -162,9 +162,6 @@ on boot
 
     chmod 660 /dev/rtc0
     chown system system /dev/rtc0
-
-    # WTF
-    chmod 444 /proc/cmdline
 
     #To allow interfaces to get v6 address when tethering is enabled
     write /proc/sys/net/ipv6/conf/rmnet0/accept_ra 2
@@ -503,11 +500,11 @@ on property:ro.data.large_tcp_window_size=true
 service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
     class late_start
 
-service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1
+service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -w 1023 /mnt/media_rw/sdcard1 /storage/sdcard1
     class late_start
     disabled
 
-service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/usbdisk /storage/usbdisk
+service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 -w 1023 /mnt/media_rw/usbdisk /storage/usbdisk
     class late_start
     disabled
 
