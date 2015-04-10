@@ -21,6 +21,10 @@ TARGET_SPECIFIC_HEADER_PATH += device/sony/huashan/include
 TARGET_KERNEL_SOURCE := kernel/sony/msm8x60
 TARGET_KERNEL_CONFIG := cm_viskan_huashan_defconfig
 
+# DEXPREOPT
+WITH_DEXPREOPT := true
+DONT_DEXPREOPT_PREBUILTS := true
+
 # Platform
 TARGET_BOOTLOADER_BOARD_NAME := MSM8960
 BOARD_VENDOR_PLATFORM := viskan
@@ -28,7 +32,7 @@ BOARD_VENDOR_PLATFORM := viskan
 # Kernel information
 BOARD_KERNEL_BASE  := 0x80200000
 BOARD_KERNEL_PAGESIZE := 2048
-BOARD_KERNEL_CMDLINE  := androidboot.hardware=qcom user_debug=31 androidboot.baseband=msm msm_rtb.filter=0x3F ehci-hcd.park=3 vmalloc=400M androidboot.selinux=permissive selinux=0
+BOARD_KERNEL_CMDLINE  := androidboot.hardware=qcom user_debug=31 androidboot.baseband=msm msm_rtb.filter=0x3F ehci-hcd.park=3 vmalloc=400M androidboot.selinux=permissive
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
 
 # Use legacy MMAP for pre-lollipop blobs
