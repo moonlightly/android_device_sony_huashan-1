@@ -86,40 +86,28 @@
         Must be overridden in platform specific overlays
     -->
     <integer-array name="config_autoBrightnessLevels">
-        <item>24</item>
-        <item>72</item>
-        <item>156</item>
-        <item>192</item>
-        <item>240</item>
-        <item>420</item>
-        <item>756</item>
-        <item>1024</item>
+        <item>1</item>
+        <item>2</item>
+        <item>5</item>
+        <item>10</item>
+        <item>260</item>
+        <item>350</item>
+        <item>355</item>
     </integer-array>
-    
-	    <!-- Minimum screen brightness setting allowed by the power manager.
-         The user is forbidden from setting the brightness below this level. -->
-   <integer name="config_screenBrightnessSettingMinimum">1</integer>
-   
-    <!-- Screen brightness used to dim the screen when the user activity
-         timeout expires.  May be less than the minimum allowed brightness setting
-         that can be set by the user. -->
-    <integer name="config_screenBrightnessDim">1</integer>
-
 
     <!-- Array of output values for LCD backlight corresponding to the LUX values
         in the config_autoBrightnessLevels array. This array should have size one greater
         than the size of the config_autoBrightnessLevels array.
     -->
     <integer-array name="config_autoBrightnessLcdBacklightValues">
-        <item>59</item>  <!--    0 -   24 -->
-        <item>110</item> <!--   24 -   72 -->
-        <item>142</item> <!--   72 -  156 -->
-        <item>159</item> <!--  156 -  192 -->
-        <item>174</item> <!--  192 -  240 -->
-        <item>200</item> <!--  240 -  420 -->
-        <item>228</item> <!--  420 -  756 -->
-        <item>250</item> <!--  756 - 1024 -->
-        <item>255</item> <!-- 1024+ -->
+        <item>34</item>
+        <item>35</item>
+        <item>40</item>
+        <item>45</item>
+        <item>70</item>
+        <item>143</item>
+        <item>191</item>
+        <item>255</item>
     </integer-array>
 
     <!-- Array of output values for button backlight corresponding to the LUX values
@@ -279,13 +267,13 @@
 
     <!-- Defines the system property to set for performance profile xe: sys.cpu.modes. Leave it
          blank if the device do not support performance profiles -->
-    <string name="config_perf_profile_prop" translatable="false">sys.perf.profile</string>
+    <string name="config_perf_profile_prop">sys.perf.profile</string>
 
     <!-- When config_perf_profile_prop is defined, this value MUST be the index of
          one of the listes values in frameworks/base/core/res/res/values/cm_arrays.xml
          for "perf_profile_values" array. Leave it blank if the device do not support
          performance profiles  -->
-    <string name="config_perf_profile_default_entry" translatable="false">1</string>
+    <string name="config_perf_profile_default_entry">1</string>
 
     <!-- Is the notification LED intrusive? Used to decide if there should be a disable option -->
     <bool name="config_intrusiveNotificationLed">true</bool>

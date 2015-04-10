@@ -28,7 +28,12 @@ on boot
     chmod 660 /sys/class/leds/lcd-backlight2/brightness
 
     # Vibrator
-    chown system system /sys/class/timed_output/vibrator/level
+    chown root system /sys/class/timed_output/vibrator/level
+    chown root system /sys/devices/platform/mdp.525057/kcal
+    chmod 0664 /sys/class/timed_output/vibrator/level
+    chmod 0664 /sys/devices/platform/mdp.525057/kcal
+    restorecon /sys/class/timed_output/vibrator/level
+    restorecon /sys/devices/platform/mdp.525057/kcal
 
     # Permissions for LSM330D sensor
     chown system system /sys/devices/i2c-12/12-0019/pollrate_ms
