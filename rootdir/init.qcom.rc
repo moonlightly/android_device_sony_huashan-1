@@ -132,6 +132,10 @@ on boot
 
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
 
+	# FM
+    chmod 0644 /dev/radio0
+    chown fm_radio fm_radio /dev/radio0
+
     # Remove write permissions to video related nodes
     chown system graphics /sys/class/graphics/fb1/hpd
     chown system graphics /sys/class/graphics/fb1/vendor_name

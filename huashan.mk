@@ -155,6 +155,13 @@ PRODUCT_PACKAGES += \
     libaudio-resampler \
     tinymix
 
+#FM
+PRODUCT_PACKAGES += \
+    FM2 \
+    FMRecord \
+    qcom.fmradio \
+    libqcomfm_jni
+	
 # Bluetooth
 PRODUCT_PACKAGES += \
     hci_qcomm_init
