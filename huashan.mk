@@ -113,9 +113,6 @@ PRODUCT_COPY_FILES += \
 
 #Temporary Files
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/custom/system/lib/libaudiopolicymanagerdefault.so:system/lib/libaudiopolicymanagerdefault.so
-
-PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/custom/system/etc/flashled_calc_parameters.cfg:system/etc/flashled_calc_parameters.cfg
 
 PRODUCT_COPY_FILES += \
