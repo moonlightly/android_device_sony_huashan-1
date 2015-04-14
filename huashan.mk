@@ -156,6 +156,7 @@ PRODUCT_PACKAGES += \
 	libqcompostprocbundle \
     libqcomvisualizer \
     libqcomvoiceprocessing \
+	libaudiopolicymanagerdefault \
     tinymix
 
 #FM
