@@ -153,6 +153,9 @@ PRODUCT_PACKAGES += \
     audio.usb.default \
     audio.r_submix.default \
     libaudio-resampler \
+	libqcompostprocbundle \
+    libqcomvisualizer \
+    libqcomvoiceprocessing \
     tinymix
 
 #FM
