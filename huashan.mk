@@ -218,8 +218,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.handset.mic=digital \
     persist.audio.lowlatency.rec=false \
     af.resampler.quality=255 \
-    ro.qc.sdk.audio.fluencetype=none \
-	lpa.decode=true
+    ro.qc.sdk.audio.fluencetype=none
 
 # QCOM Location
 PRODUCT_PROPERTY_OVERRIDES += \
