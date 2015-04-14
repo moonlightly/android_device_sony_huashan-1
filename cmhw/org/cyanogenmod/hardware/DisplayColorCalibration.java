@@ -17,79 +17,34 @@
 package org.cyanogenmod.hardware;
 
 import java.io.File;
+import java.util.Scanner;
 import org.cyanogenmod.hardware.util.FileUtils;
 
-/*
- * Display RGB intensity calibration (kcal)
- *
- * Exports methods to get the valid value boundaries, the
- * current color values, and a method to set new ones.
- *
- * Values exported by min/max can be the direct values required
- * by the hardware, or a local (to DisplayColorCalibration) abstraction
- * that's internally converted to something else prior to actual use. The
- * Settings user interface will normalize these into a 0-100 (percentage)
- * scale before showing them to the user, but all values passed to/from
- * the client (Settings) are in this class' scale.
- */
-
 public class DisplayColorCalibration {
-    private static final String COLOR_FILE = "/sys/devices/platform/mdp.525057/kcal";
-
-    /*
-     * All HAF classes should export this boolean.
-     * Real implementations must, of course, return true
-     */
+    private static final String COLOR_FILE = "/sys/class/graphics/fb0/rgb";
 
     public static boolean isSupported() {
-        return new File(COLOR_FILE).exists();
+        File f = new File(COLOR_FILE);
+        return f.exists();
     }
 
-    /*
-     * What's the maximum integer value we take for a color
-     */
+    public static int getMaxValue()  {
+        return 32768;
+    }
 
-    public static int getMaxValue() {
+    public static int getMinValue()  {
         return 255;
     }
-
-    /*
-     * What's the minimum integer value we take for a color
-     */
-
-    public static int getMinValue() {
-        return 0;
-    }
-
-    /*
-     * What's the default integer value we take for a color
-     */
 
     public static int getDefValue() {
         return getMaxValue();
     }
 
-    /*
-     * What's the current RGB triplet?
-     * This should return a space-separated set of integers in
-     * a string, same format as the input to setColors()
-     */
-
     public static String getCurColors()  {
         return FileUtils.readOneLine(COLOR_FILE);
     }
 
-    /*
-     * Set the RGB values to the given input triplet. Input is
-     * expected to consist of 3 values, space-separated, each to
-     * be a value between the boundaries set by get(Max|Min)Value
-     * (see below), and it's meant to be locally interpreted/used.
-     */
-
-    public static boolean setColors(String colors)  {
-        if (!FileUtils.writeLine(COLOR_FILE, colors)) {
-            return false;
-        }
-        return true;
+    public static boolean setColors(String colors) {
+        return FileUtils.writeLine(COLOR_FILE, colors);
     }
 }
