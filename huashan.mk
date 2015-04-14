@@ -214,11 +214,15 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 
 # Audio
 PRODUCT_PROPERTY_OVERRIDES += \
+    qcom.audio.init=complete \
     persist.audio.fluence.mode=endfire \
-    persist.audio.handset.mic=digital \
+    persist.audio.vr.enable=false \
+    persist.audio.handset.mic=analog \
     persist.audio.lowlatency.rec=false \
-    af.resampler.quality=255 \
-    ro.qc.sdk.audio.fluencetype=none
+    media.aac_51_output_enabled=true \
+    ro.qc.sdk.audio.ssr=false \
+    ro.qc.sdk.audio.fluencetype=none \
+    audio.gapless.playback.disable=true
 
 # QCOM Location
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -254,4 +258,3 @@ $(call inherit-product, vendor/sony/huashan/huashan-vendor.mk)
 
 # Include own Adreno blobs
 $(call inherit-product, vendor/sony/huashan/huashan-adreno-blobs.mk)
-
