@@ -109,10 +109,7 @@ etc/firmware/dsps.mdt
 #
 # FM Radio
 #
-bin/fmconfig
 bin/fm_qsoc_patches
-lib/libfmradio.so
-lib/libfmradio.sony-iris.so
 
 #
 # HDCP
