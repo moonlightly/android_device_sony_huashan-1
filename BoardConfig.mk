@@ -105,6 +105,7 @@ BOARD_HAVE_NEW_QCOM_CSDCLIENT := true
 TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 
 # FM Radio
+QCOM_FM_ENABLED := true
 AUDIO_FEATURE_ENABLED_FM := true
 
 # Partition information
