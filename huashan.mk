@@ -111,13 +111,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/system/etc/sysmon.cfg:system/etc/sysmon.cfg
 
-#Temporary Files
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/custom/system/etc/flashled_calc_parameters.cfg:system/etc/flashled_calc_parameters.cfg
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/custom/system/lib/libjni_latinimegoogle.so:system/lib/libjni_latinimegoogle.so
-
 # NFC Support
 PRODUCT_PACKAGES += \
     libnfc \
