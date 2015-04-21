@@ -152,7 +152,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     FM2 \
     FMRecord \
-    qcom.fmradio \
     libqcomfm_jni
 	
 # Bluetooth
