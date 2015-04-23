@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-char const*const LCD_BACKLIGHT_FILE  = "/sys/class/leds/lcd-backlight/brightness";
-char const*const LCD_BACKLIGHT2_FILE = "/dev/null";
-char const*const MAX_BRIGHTNESS_FILE = "/sys/class/leds/lcd-backlight/max_brightness";
-
-const int LCD_BRIGHTNESS_MIN         = 20;
+char const*const LCD_BACKLIGHT_FILE  = "/sys/devices/i2c-10/10-0040/leds/lcd-backlight1/brightness";
+char const*const LCD_BACKLIGHT2_FILE = "/sys/devices/i2c-10/10-0040/leds/lcd-backlight2/brightness";
+char const*const MAX_BRIGHTNESS_FILE = "/sys/devices/i2c-10/10-0040/leds/lcd-backlight1/max_brightness";
+const int LCD_BRIGHTNESS_MIN         = 1;

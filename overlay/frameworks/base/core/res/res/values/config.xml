@@ -71,15 +71,6 @@
          config_hardware_automatic_brightness_available is not set, so we will use software implementation -->
     <bool name="config_automatic_brightness_available">true</bool>
 
-	<!-- Minimum screen brightness setting allowed by the power manager.
-        The user is forbidden from setting the brightness below this level. -->
-    <integer name="config_screenBrightnessSettingMinimum">20</integer>
-
-    <!-- Screen brightness used to dim the screen when the user activity
-        timeout expires.  May be less than the minimum allowed brightness setting
-        that can be set by the user. -->
-    <integer name="config_screenBrightnessDim">20</integer>
-	
     <!-- Is the device capable of hot swapping an UICC Card -->
     <bool name="config_hotswapCapable">true</bool>
 
@@ -94,32 +85,52 @@
 
         Must be overridden in platform specific overlays
     -->
-	
-	<integer-array name="config_autoBrightnessLevels">
-        <item>1</item>
-        <item>2</item>
-        <item>5</item>
-        <item>10</item>
-        <item>260</item>
-        <item>350</item>
-        <item>355</item>
+    <integer-array name="config_autoBrightnessLevels">
+        <item>3</item>
+        <item>6</item>
+        <item>12</item>
+        <item>19</item>
+        <item>25</item>
+        <item>50</item>
+        <item>100</item>
+        <item>150</item>
+        <item>200</item>
+        <item>300</item>
+        <item>400</item>
+        <item>600</item>
+        <item>900</item>
     </integer-array>
 
     <!-- Array of output values for LCD backlight corresponding to the LUX values
-         in the config_autoBrightnessLevels array.  This array should have size one greater
-         than the size of the config_autoBrightnessLevels array.
-         The brightness values must be between 0 and 255 and be non-decreasing.
-         This must be overridden in platform specific overlays -->
+        in the config_autoBrightnessLevels array. This array should have size one greater
+        than the size of the config_autoBrightnessLevels array.
+    -->
     <integer-array name="config_autoBrightnessLcdBacklightValues">
-        <item>34</item>
-        <item>35</item>
-        <item>40</item>
-        <item>45</item>
-        <item>70</item>
-        <item>143</item>
-        <item>191</item>
-        <item>255</item>
+        <item>1</item>    <!-- 0-3 -->
+        <item>11</item>   <!-- 3-6 -->
+        <item>22</item>   <!-- 6-12 -->
+        <item>38</item>   <!-- 12-19 -->
+        <item>47</item>   <!-- 19-25 -->
+        <item>63</item>   <!-- 25-50 -->
+        <item>85</item>   <!-- 50-100 -->
+        <item>94</item>   <!-- 100-150 -->
+        <item>110</item>  <!-- 150-200 -->
+        <item>126</item>  <!-- 200-300 -->
+        <item>162</item>  <!-- 300-400 -->
+        <item>196</item>  <!-- 400-600 -->
+        <item>250</item>  <!-- 600-900 -->
+        <item>255</item>  <!-- 900+ -->
     </integer-array>
+	
+	<!-- Minimum screen brightness allowed by the power manager. -->
+    <integer name="config_screenBrightnessDim">1</integer>
+
+    <!-- Minimum screen brightness setting allowed by the power manager.
+         The user is forbidden from setting the brightness below this level. -->
+    <integer name="config_screenBrightnessSettingMinimum">1</integer>
+
+    <!-- We don't have button backlight. -->
+    <integer name="config_buttonBrightnessSettingDefault">0</integer>
 
     <!-- Package name(s) containing location provider support.
          These packages can contain services implementing location providers,
