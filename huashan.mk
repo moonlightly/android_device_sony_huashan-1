@@ -151,7 +151,8 @@ PRODUCT_PACKAGES += \
 #FM
 PRODUCT_PACKAGES += \
     FM2 \
-    FMRecord
+    FMRecord \
+    libqcomfm_jni
 	
 # Bluetooth
 PRODUCT_PACKAGES += \
