@@ -105,9 +105,6 @@ BOARD_HAVE_NEW_QCOM_CSDCLIENT := true
 # QC AV Enhancements
 TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 
-# FM Radio
-AUDIO_FEATURE_ENABLED_FM := true
-
 # Partition information
 BOARD_VOLD_MAX_PARTITIONS := 26
 
