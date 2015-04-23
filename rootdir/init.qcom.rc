@@ -526,10 +526,9 @@ service bugreport /system/bin/dumpstate -d -p -B \
     oneshot
     keycodes 114 115 116
 
-service fm_dl /system/bin/setprop hw.fm.init 1
-    class late_start
-	user root
-    group system fm_radio
+service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
+    user root
+    group system
     disabled
     oneshot
 
