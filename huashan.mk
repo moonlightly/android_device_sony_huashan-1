@@ -195,7 +195,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Radio and Telephony
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.transmitpower=true \
-    persist.radio.add_power_save=1
+    persist.radio.add_power_save=1 \
+	persist.data.netmgrd.qos.enable=true
 
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
