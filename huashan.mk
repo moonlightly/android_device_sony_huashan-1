@@ -17,11 +17,8 @@ $(call inherit-product, device/sony/msm8960-common/msm8960.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/sony/huashan/overlay
 
-# This device is xhdpi.  However the platform doesn't
-# currently contain all of the bitmaps at xhdpi density so
-# we do this little trick to fall back to the hdpi version
-# if the xhdpi doesn't exist.
-PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
+# This device is xhdpi
+PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
 
 # Permissions
@@ -196,15 +193,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.transmitpower=true \
     persist.radio.add_power_save=1 \
+	rild.libpath=/system/lib/libril-qc-qmi-1.so \
 	persist.data.netmgrd.qos.enable=true
 
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sf.lcd_density=320 \
     debug.composition.type=c2d
-
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    rild.libpath=/system/lib/libril-qc-qmi-1.so
 
 # Audio
 PRODUCT_PROPERTY_OVERRIDES += \
