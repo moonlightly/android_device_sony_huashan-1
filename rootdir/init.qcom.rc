@@ -362,6 +362,8 @@ on post-fs-data
     write /sys/devices/platform/msm_sdcc.3/idle_timeout 10
 
 on charger
+    write /sys/module/msm_fb/parameters/align_buffer 0
+
     # Enable Power modes and set the CPU Freq Sampling rates
     write /sys/module/rpm_resources/enable_low_power/L2_cache 1
     write /sys/module/rpm_resources/enable_low_power/pxo 1
