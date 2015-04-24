@@ -189,8 +189,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.transmitpower=true \
     persist.radio.add_power_save=1 \
-	rild.libpath=/system/lib/libril-qc-qmi-1.so \
-	persist.data.netmgrd.qos.enable=true
+	rild.libpath=/system/lib/libril-qc-qmi-1.so
 
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
