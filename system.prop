@@ -15,4 +15,4 @@ persist.gps.qmienabled=true
 
 hw.fm.internal_antenna=true
 
-ro.sf.lcd_density=240
+ro.sf.lcd_density=320
