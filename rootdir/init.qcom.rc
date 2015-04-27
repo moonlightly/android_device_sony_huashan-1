@@ -421,11 +421,11 @@ service mac-update /system/bin/mac-update
     user wifi
     oneshot
 
+#BT service
 service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
-    class late_start
+    class main
     user bluetooth
-    group qcom_oncrpc bluetooth net_bt_admin system net_bt_stack
-    seclabel u:r:bluetooth_loader:s0
+    group bluetooth system
     disabled
     oneshot
 
