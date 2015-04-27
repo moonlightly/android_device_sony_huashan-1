@@ -13,6 +13,9 @@ persist.timed.enable=true
 #system prop for switching gps driver to qmi
 persist.gps.qmienabled=true
 
+# FM radio
+ro.fm.analogpath.supported=false
+ro.fm.transmitter=false
 hw.fm.internal_antenna=true
 
 ro.sf.lcd_density=320
