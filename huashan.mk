@@ -102,6 +102,7 @@ PRODUCT_COPY_FILES += \
 
 # HW Settings
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/system/etc/pre_hw_config.sh:system/etc/pre_hw_config.sh \
     $(LOCAL_PATH)/rootdir/system/etc/hw_config.sh:system/etc/hw_config.sh
 
 # Sony system_monitor
@@ -152,7 +153,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     FM2 \
     FMRecord \
-    libqcomfm_jni \
+    libqcomfm_jni
+
+PRODUCT_PACKAGES += \
     qcom.fmradio
 
 # Bluetooth
