@@ -102,7 +102,6 @@ TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 
 #Fm Radio
 AUDIO_FEATURE_ENABLED_FM := true
-BOARD_USES_SEPERATED_FM := true
 QCOM_FM_ENABLED := true
 
 # Partition information
