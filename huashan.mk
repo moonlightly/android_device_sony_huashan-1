@@ -54,7 +54,7 @@ PRODUCT_COPY_FILES += \
 # Additional sbin stuff
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/sbin/wait4tad_static:root/sbin/wait4tad_static \
-    $(LOCAL_PATH)/rootdir/sbin/tad_static:root/sbin/tad_static
+    $(LOCAL_PATH)/rootdir/system/bin/tad_static:root/system/bin/tad_static
 
 # Key layouts
 PRODUCT_COPY_FILES += \
