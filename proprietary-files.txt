@@ -13,28 +13,6 @@
 # limitations under the License.
 
 #
-# ADRENO
-#
-vendor/lib/egl/eglsubAndroid.so
-vendor/lib/egl/libEGL_adreno.so
-vendor/lib/egl/libGLESv1_CM_adreno.so
-vendor/lib/egl/libGLESv2_adreno.so
-vendor/lib/egl/libq3dtools_adreno.so
-vendor/lib/libadreno_utils.so
-vendor/lib/libc2d30-a3xx.so
-vendor/lib/libC2D2.so
-vendor/lib/libllvm-qcom.so
-vendor/lib/libOpenCL.so
-vendor/lib/libgsl.so
-vendor/lib/libsc-a3xx.so
-
-#
-# Temp/misc
-#
-etc/firmware/a300_pfp.fw
-etc/firmware/a300_pm4.fw
-
-#
 # ADSP
 #
 lib/libadsprpc.so
@@ -114,7 +92,7 @@ lib/libcald_util.so
 # CPU
 #
 bin/mpdecision
-vendor/lib/libqc-opt.so
+lib/libqc-opt.so:vendor/lib/libqc-opt.so
 lib/libthermalclient.so
 
 #
