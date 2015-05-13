@@ -90,9 +90,9 @@ esac
 
 if [ -z "$BDADDR" ]
 then
-  /system/bin/hci_qcomm_init -e $PWR_CLASS $LE_PWR_CLASS -vv
+  logwrapper /system/bin/hci_qcomm_init -e $PWR_CLASS $LE_PWR_CLASS -vv
 else
-  /system/bin/hci_qcomm_init -b $BDADDR -e $PWR_CLASS $LE_PWR_CLASS -vv
+  logwrapper /system/bin/hci_qcomm_init -b $BDADDR -e $PWR_CLASS $LE_PWR_CLASS -vv
 fi
 
 case $? in
