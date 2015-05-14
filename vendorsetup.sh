@@ -1,1 +1,1 @@
-add_lunch_combo cm_huashan-userdebug
+add_lunch_combo cm_huashan-eng
