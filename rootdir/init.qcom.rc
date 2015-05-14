@@ -119,7 +119,7 @@ on boot
     chmod 2770 /dev/socket/qmux_radio
     mkdir /dev/socket/qmux_audio 0770 media audio
     chmod 2770 /dev/socket/qmux_audio
-    mkdir /dev/socket/qmux_bluetooth 0770 bluetooth bluetooth
+    mkdir /dev/socket/qmux_bluetooth 0770 bluetooth net_bt_stack
     chmod 2770 /dev/socket/qmux_bluetooth
     mkdir /dev/socket/qmux_gps 0770 gps gps
     chmod 2770 /dev/socket/qmux_gps
@@ -132,7 +132,7 @@ on boot
 
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
 
-	# FM
+    # FM
     chmod 0644 /dev/radio0
     chown fm_radio fm_radio /dev/radio0
 
@@ -395,9 +395,9 @@ service mac-update /system/bin/mac-update
 
 #BT service
 service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
-    class main
+    class late_start
     user bluetooth
-    group bluetooth system
+    group bluetooth net_bt_admin system net_bt_stack
     disabled
     oneshot
 
@@ -534,6 +534,7 @@ service bugreport /system/bin/dumpstate -d -p -B \
     keycodes 114 115 116
 
 service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
+    class late_start
     user root
     group system
     disabled
