@@ -64,6 +64,9 @@ TARGET_NO_RPC := true
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/sony/huashan/bluetooth
 
+#Brightness
+TARGET_LS_USE_ALS_NODE := true
+
 # RIL
 BOARD_PROVIDES_LIBRIL := true
 
