@@ -28,7 +28,7 @@ BOARD_VENDOR_PLATFORM := viskan
 # Kernel information
 BOARD_KERNEL_BASE  := 0x80200000
 BOARD_KERNEL_PAGESIZE := 2048
-BOARD_KERNEL_CMDLINE  := androidboot.hardware=qcom user_debug=31 androidboot.baseband=msm msm_rtb.filter=0x3F ehci-hcd.park=3 vmalloc=400M androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE  := androidboot.hardware=qcom user_debug=31 androidboot.baseband=msm msm_rtb.filter=0x3F ehci-hcd.park=3 vmalloc=400M
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
 
 # Use legacy MMAP for pre-lollipop blobs
@@ -122,23 +122,31 @@ BOARD_SEPOLICY_UNION += \
     file_contexts \
     property_contexts \
     bootanim.te \
+    file.te \
     illumination.te \
     init.te \
+    init_shell.te \
+    kernel.te \
     mac_update.te \
     mediaserver.te \
+    mpdecision.te \
     platform_app.te \
     property.te \
+    radio.te \
+    rild.te \
     rmt_storage.te \
     sdcardd.te \
     secchand.te \
     setup_fs.te \
+    shell.te \
     surfaceflinger.te \
     system_app.te \
     system_monitor.te \
     system_server.te \
     tad_static.te \
     ta_qmi_service.te \
-    updatemiscta.te
+    updatemiscta.te \
+    vold.te
 
 # inherit from the proprietary version
 -include vendor/sony/huashan/BoardConfigVendor.mk
