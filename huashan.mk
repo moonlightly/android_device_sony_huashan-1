@@ -119,7 +119,8 @@ PRODUCT_PACKAGES += \
 
 # Recovery
 PRODUCT_PACKAGES += \
-    extract_elf_ramdisk
+    extract_elf_ramdisk \
+    keycheck    
 
 # NFCEE access control
 ifeq ($(TARGET_BUILD_VARIANT),user)
