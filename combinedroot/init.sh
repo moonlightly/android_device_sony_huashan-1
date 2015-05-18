@@ -27,9 +27,10 @@ busybox mount -t proc proc /proc
 busybox mount -t sysfs sysfs /sys
 
 # trigger amber LED
-busybox echo 255 > ${BOOTREC_LED_RED}
-busybox echo 0 > ${BOOTREC_LED_GREEN}
-busybox echo 255 > ${BOOTREC_LED_BLUE}
+if [ -e /sbin/bootrec-led ]
+then
+	./sbin/bootrec-led
+fi
 
 # keycheck
 busybox cat ${BOOTREC_EVENT} > /dev/keycheck&
@@ -41,10 +42,6 @@ load_image=/sbin/ramdisk.cpio
 # boot decision
 if [ -s /dev/keycheck ] || busybox grep -q warmboot=0x77665502 /proc/cmdline ; then
 	busybox echo 'RECOVERY BOOT' >>boot.txt
-	# orange led for recoveryboot
-	busybox echo 255 > ${BOOTREC_LED_RED}
-	busybox echo 100 > ${BOOTREC_LED_GREEN}
-	busybox echo 0 > ${BOOTREC_LED_BLUE}
 	# recovery ramdisk
 	busybox mknod -m 600 ${BOOTREC_FOTA_NODE}
 	busybox mount -o remount,rw /
@@ -55,21 +52,18 @@ if [ -s /dev/keycheck ] || busybox grep -q warmboot=0x77665502 /proc/cmdline ; t
 else
 	busybox echo 'ANDROID BOOT' >>boot.txt
 	# poweroff LED
-	busybox echo 0 > ${BOOTREC_LED_RED}
-	busybox echo 0 > ${BOOTREC_LED_GREEN}
-	busybox echo 0 > ${BOOTREC_LED_BLUE}
 fi
 
 # kill the keycheck process
 busybox pkill -f "busybox cat ${BOOTREC_EVENT}"
-
-# unpack the ramdisk image
-busybox cpio -i < ${load_image}
 
 busybox umount /proc
 busybox umount /sys
 
 busybox rm -fr /dev/*
 busybox date >>boot.txt
+
+busybox cpio -ui < ${load_image}
+
 export PATH="${_PATH}"
 exec /init
