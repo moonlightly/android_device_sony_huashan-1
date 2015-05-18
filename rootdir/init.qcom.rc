@@ -66,6 +66,8 @@ on fs
     chown system system /lta-label
     chmod 0555 /lta-label
 
+    chmod 0775 /data/etc
+
     # SONY: Start the TrimArea Daemon.
     class_start trimarea
     exec /sbin/wait4tad_static
