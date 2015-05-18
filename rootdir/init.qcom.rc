@@ -90,6 +90,8 @@ on early-boot
 
     exec /system/bin/sh /init.qcom.early_boot.sh ${ro.board.platform}
 
+    exec /system/bin/sh /system/etc/pre_hw_config.sh
+
     # Permissions for AKM8963 sensor
     chown system system /data/misc/akm_set.txt
 
