@@ -172,7 +172,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Sensors
 PRODUCT_PACKAGES += \
-    sensors.default
+    sensors.msm8960
 
 # Wifi service
 PRODUCT_PACKAGES += \
