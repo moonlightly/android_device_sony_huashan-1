@@ -59,6 +59,8 @@ BOARD_HARDWARE_CLASS := device/sony/huashan/cmhw
 
 TARGET_LS_USE_ALS_NODE := true
 
+TARGET_PROVIDES_LIBLIGHT := true
+
 # Camera
 USE_DEVICE_SPECIFIC_CAMERA := true
 

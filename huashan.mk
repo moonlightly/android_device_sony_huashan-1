@@ -177,6 +177,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     sensors.msm8960
 
+# Light
+PRODUCT_PACKAGES += \
+    lights.msm8960
+
 # Wifi service
 PRODUCT_PACKAGES += \
     mac-update \
