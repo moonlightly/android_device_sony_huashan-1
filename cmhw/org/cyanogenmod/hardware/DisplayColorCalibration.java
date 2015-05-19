@@ -34,7 +34,7 @@ import org.cyanogenmod.hardware.util.FileUtils;
  */
 
 public class DisplayColorCalibration {
-    private static final String COLOR_FILE = "/sys/devices/platform/mdp.525057/kcal";
+    private static final String COLOR_FILE = "/sys/class/graphics/fb0/rgb";
 
     /*
      * All HAF classes should export this boolean.
@@ -50,7 +50,7 @@ public class DisplayColorCalibration {
      */
 
     public static int getMaxValue() {
-        return 255;
+        return 32768;
     }
 
     /*
@@ -58,7 +58,7 @@ public class DisplayColorCalibration {
      */
 
     public static int getMinValue() {
-        return 0;
+        return 255;
     }
 
     /*
@@ -87,9 +87,6 @@ public class DisplayColorCalibration {
      */
 
     public static boolean setColors(String colors)  {
-        if (!FileUtils.writeLine(COLOR_FILE, colors)) {
-            return false;
-        }
-        return true;
+        FileUtils.writeLine(COLOR_FILE, colors
     }
 }
