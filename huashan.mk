@@ -175,7 +175,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Sensors
 PRODUCT_PACKAGES += \
-    sensors.msm8960
+    sensors.default
 
 # Light
 PRODUCT_PACKAGES += \
