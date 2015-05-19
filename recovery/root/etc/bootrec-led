@@ -1,139 +1,27 @@
 #!/sbin/busybox sh
 
-# trigger button-backlight
-busybox echo '10' > /sys/class/leds/LED1-R/brightness
-busybox echo '0' > /sys/class/leds/LED1-G/brightness
-busybox echo '0' > /sys/class/leds/LED1-B/brightness
-busybox echo '0' > /sys/class/leds/LED2-R/brightness
+# Reset LED bar
+busybox echo '0' > /sys/devices/i2c-10/10-0040/leds/as3677::rgb1/brightness
 busybox echo '0' > /sys/class/leds/LED2-G/brightness
-busybox echo '0' > /sys/class/leds/LED2-B/brightness
-busybox echo '0' > /sys/class/leds/LED3-R/brightness
-busybox echo '0' > /sys/class/leds/LED3-G/brightness
-busybox echo '0' > /sys/class/leds/LED3-B/brightness
-busybox sleep 0.2
-busybox echo '80' > /sys/class/leds/LED1-R/brightness
-busybox echo '0' > /sys/class/leds/LED1-G/brightness
-busybox echo '0' > /sys/class/leds/LED1-B/brightness
-busybox echo '0' > /sys/class/leds/LED2-R/brightness
-busybox echo '0' > /sys/class/leds/LED2-G/brightness
-busybox echo '0' > /sys/class/leds/LED2-B/brightness
-busybox echo '0' > /sys/class/leds/LED3-R/brightness
-busybox echo '0' > /sys/class/leds/LED3-G/brightness
-busybox echo '0' > /sys/class/leds/LED3-B/brightness
-busybox sleep 0.2
-busybox echo '160' > /sys/class/leds/LED1-R/brightness
-busybox echo '0' > /sys/class/leds/LED1-G/brightness
-busybox echo '0' > /sys/class/leds/LED1-B/brightness
-busybox echo '0' > /sys/class/leds/LED2-R/brightness
-busybox echo '0' > /sys/class/leds/LED2-G/brightness
-busybox echo '0' > /sys/class/leds/LED2-B/brightness
-busybox echo '0' > /sys/class/leds/LED3-R/brightness
-busybox echo '0' > /sys/class/leds/LED3-G/brightness
-busybox echo '0' > /sys/class/leds/LED3-B/brightness
-busybox sleep 0.2
-busybox echo '255' > /sys/class/leds/LED1-R/brightness
-busybox echo '0' > /sys/class/leds/LED1-G/brightness
-busybox echo '0' > /sys/class/leds/LED1-B/brightness
-busybox echo '0' > /sys/class/leds/LED2-R/brightness
-busybox echo '0' > /sys/class/leds/LED2-G/brightness
-busybox echo '0' > /sys/class/leds/LED2-B/brightness
-busybox echo '0' > /sys/class/leds/LED3-R/brightness
-busybox echo '0' > /sys/class/leds/LED3-G/brightness
-busybox echo '0' > /sys/class/leds/LED3-B/brightness
-busybox sleep 0.2
+busybox echo '0' > /sys/devices/i2c-10/10-0040/leds/as3677::rgb3/brightness
 
-busybox echo '255' > /sys/class/leds/LED1-R/brightness
-busybox echo '0' > /sys/class/leds/LED1-G/brightness
-busybox echo '0' > /sys/class/leds/LED1-B/brightness
-busybox echo '20' > /sys/class/leds/LED2-R/brightness
-busybox echo '10' > /sys/class/leds/LED2-G/brightness
-busybox echo '0' > /sys/class/leds/LED2-B/brightness
-busybox echo '0' > /sys/class/leds/LED3-R/brightness
-busybox echo '0' > /sys/class/leds/LED3-G/brightness
-busybox echo '0' > /sys/class/leds/LED3-B/brightness
-busybox sleep 0.2
-busybox echo '255' > /sys/class/leds/LED1-R/brightness
-busybox echo '0' > /sys/class/leds/LED1-G/brightness
-busybox echo '0' > /sys/class/leds/LED1-B/brightness
-busybox echo '60' > /sys/class/leds/LED2-R/brightness
-busybox echo '30' > /sys/class/leds/LED2-G/brightness
-busybox echo '0' > /sys/class/leds/LED2-B/brightness
-busybox echo '0' > /sys/class/leds/LED3-R/brightness
-busybox echo '0' > /sys/class/leds/LED3-G/brightness
-busybox echo '0' > /sys/class/leds/LED3-B/brightness
-busybox sleep 0.2
-busybox echo '255' > /sys/class/leds/LED1-R/brightness
-busybox echo '0' > /sys/class/leds/LED1-G/brightness
-busybox echo '0' > /sys/class/leds/LED1-B/brightness
-busybox echo '120' > /sys/class/leds/LED2-R/brightness
-busybox echo '60' > /sys/class/leds/LED2-G/brightness
-busybox echo '0' > /sys/class/leds/LED2-B/brightness
-busybox echo '0' > /sys/class/leds/LED3-R/brightness
-busybox echo '0' > /sys/class/leds/LED3-G/brightness
-busybox echo '0' > /sys/class/leds/LED3-B/brightness
-busybox sleep 0.2
-busybox echo '255' > /sys/class/leds/LED1-R/brightness
-busybox echo '0' > /sys/class/leds/LED1-G/brightness
-busybox echo '0' > /sys/class/leds/LED1-B/brightness
-busybox echo '200' > /sys/class/leds/LED2-R/brightness
-busybox echo '100' > /sys/class/leds/LED2-G/brightness
-busybox echo '0' > /sys/class/leds/LED2-B/brightness
-busybox echo '0' > /sys/class/leds/LED3-R/brightness
-busybox echo '0' > /sys/class/leds/LED3-G/brightness
-busybox echo '0' > /sys/class/leds/LED3-B/brightness
-busybox sleep 0.2
+# In animaton
+for i in $(/sbin/busybox seq 0 255)
+do
+    busybox echo $i > /sys/devices/i2c-10/10-0040/leds/as3677::rgb1/brightness
+    busybox echo $i > /sys/class/leds/LED2-G/brightness
+    busybox echo $i > /sys/devices/i2c-10/10-0040/leds/as3677::rgb3/brightness
+done 
 
-busybox echo '255' > /sys/class/leds/LED1-R/brightness
-busybox echo '0' > /sys/class/leds/LED1-G/brightness
-busybox echo '0' > /sys/class/leds/LED1-B/brightness
-busybox echo '200' > /sys/class/leds/LED2-R/brightness
-busybox echo '100' > /sys/class/leds/LED2-G/brightness
-busybox echo '0' > /sys/class/leds/LED2-B/brightness
-busybox echo '0' > /sys/class/leds/LED3-R/brightness
-busybox echo '10' > /sys/class/leds/LED3-G/brightness
-busybox echo '0' > /sys/class/leds/LED3-B/brightness
-busybox sleep 0.2
-busybox echo '255' > /sys/class/leds/LED1-R/brightness
-busybox echo '0' > /sys/class/leds/LED1-G/brightness
-busybox echo '0' > /sys/class/leds/LED1-B/brightness
-busybox echo '200' > /sys/class/leds/LED2-R/brightness
-busybox echo '100' > /sys/class/leds/LED2-G/brightness
-busybox echo '0' > /sys/class/leds/LED2-B/brightness
-busybox echo '0' > /sys/class/leds/LED3-R/brightness
-busybox echo '80' > /sys/class/leds/LED3-G/brightness
-busybox echo '0' > /sys/class/leds/LED3-B/brightness
-busybox sleep 0.2
-busybox echo '255' > /sys/class/leds/LED1-R/brightness
-busybox echo '0' > /sys/class/leds/LED1-G/brightness
-busybox echo '0' > /sys/class/leds/LED1-B/brightness
-busybox echo '200' > /sys/class/leds/LED2-R/brightness
-busybox echo '100' > /sys/class/leds/LED2-G/brightness
-busybox echo '0' > /sys/class/leds/LED2-B/brightness
-busybox echo '0' > /sys/class/leds/LED3-R/brightness
-busybox echo '160' > /sys/class/leds/LED3-G/brightness
-busybox echo '0' > /sys/class/leds/LED3-B/brightness
-busybox sleep 0.2
-busybox echo '255' > /sys/class/leds/LED1-R/brightness
-busybox echo '0' > /sys/class/leds/LED1-G/brightness
-busybox echo '0' > /sys/class/leds/LED1-B/brightness
-busybox echo '200' > /sys/class/leds/LED2-R/brightness
-busybox echo '100' > /sys/class/leds/LED2-G/brightness
-busybox echo '0' > /sys/class/leds/LED2-B/brightness
-busybox echo '0' > /sys/class/leds/LED3-R/brightness
-busybox echo '255' > /sys/class/leds/LED3-G/brightness
-busybox echo '0' > /sys/class/leds/LED3-B/brightness
-busybox sleep 0.8
-
-# trigger vibration
+# Trigger vibration
 busybox echo '50' > /sys/class/timed_output/vibrator/enable
 
-# disable LED bar
-busybox echo '0' > /sys/class/leds/LED1-R/brightness
-busybox echo '0' > /sys/class/leds/LED1-G/brightness
-busybox echo '0' > /sys/class/leds/LED1-B/brightness
-busybox echo '0' > /sys/class/leds/LED2-R/brightness
-busybox echo '0' > /sys/class/leds/LED2-G/brightness
-busybox echo '0' > /sys/class/leds/LED2-B/brightness
-busybox echo '0' > /sys/class/leds/LED3-R/brightness
-busybox echo '0' > /sys/class/leds/LED3-G/brightness
-busybox echo '0' > /sys/class/leds/LED3-B/brightness
+# Out animaton
+for i in $(/sbin/busybox seq 0 255)
+do
+    j=$((255 - $i))
+    
+    busybox echo $j > /sys/devices/i2c-10/10-0040/leds/as3677::rgb1/brightness
+    busybox echo $j > /sys/class/leds/LED2-G/brightness
+    busybox echo $j > /sys/devices/i2c-10/10-0040/leds/as3677::rgb3/brightness
+done
