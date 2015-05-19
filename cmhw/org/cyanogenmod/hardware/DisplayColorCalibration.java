@@ -87,6 +87,6 @@ public class DisplayColorCalibration {
      */
 
     public static boolean setColors(String colors)  {
-        FileUtils.writeLine(COLOR_FILE, colors);
+		return FileUtils.writeLine(COLOR_FILE, colors);
     }
 }
