@@ -26,7 +26,7 @@ $(INSTALLED_BOOTIMAGE_TARGET): $(PRODUCT_OUT)/kernel $(uncompressed_ramdisk) $(r
 	$(hide) chmod 755 $(PRODUCT_OUT)/combinedroot/sbin/init.sh
 	$(hide) ln -s sbin/init.sh $(PRODUCT_OUT)/combinedroot/init
 	$(hide) cp $(BOOTREC_DEVICE) $(PRODUCT_OUT)/combinedroot/sbin/
-    $(hide) cp $(BOOTREC_LED) $(PRODUCT_OUT)/combinedroot/sbin/
+	$(hide) cp $(BOOTREC_LED) $(PRODUCT_OUT)/combinedroot/sbin/
 
 	$(hide) $(MKBOOTFS) $(PRODUCT_OUT)/combinedroot/ > $(PRODUCT_OUT)/combinedroot.cpio
 	$(hide) cat $(PRODUCT_OUT)/combinedroot.cpio | gzip > $(PRODUCT_OUT)/combinedroot.fs
