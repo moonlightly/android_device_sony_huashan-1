@@ -124,7 +124,7 @@ SOMC_CFG_SENSORS_ACCEL_BMA250NA_INPUT := yes
 SOMC_CFG_SENSORS_COMPASS_AK8963 := yes
 
 # Include common SE policies
-include device/qcom/sepolicy/sepolicy.mk
+-include device/qcom/sepolicy/sepolicy.mk
 
 BOARD_SEPOLICY_DIRS += \
     device/sony/huashan/sepolicy
@@ -134,6 +134,7 @@ BOARD_SEPOLICY_UNION += \
     property_contexts \
     bootanim.te \
     file.te \
+    hostapd.te \
     illumination.te \
     init.te \
     init_shell.te \
@@ -141,6 +142,8 @@ BOARD_SEPOLICY_UNION += \
     mac_update.te \
     mediaserver.te \
     mpdecision.te \
+    netd.te \
+    netmgrd.te \
     platform_app.te \
     property.te \
     radio.te \
