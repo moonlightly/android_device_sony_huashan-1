@@ -57,8 +57,6 @@ BOARD_USE_SONY_MACUPDATE := true
 
 BOARD_HARDWARE_CLASS := device/sony/huashan/cmhw
 
-TARGET_LS_USE_ALS_NODE := true
-
 # Camera
 USE_DEVICE_SPECIFIC_CAMERA := true
 
