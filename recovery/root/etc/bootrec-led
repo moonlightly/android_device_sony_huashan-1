@@ -1,27 +1,25 @@
 #!/sbin/busybox sh
 
-# Reset LED bar
+# trigger button-backlight
+busybox echo '255' > /sys/devices/i2c-10/10-0040/leds/as3677::rgb1/brightness
+busybox echo '255' > /sys/class/leds/LED2-G/brightness
+busybox echo '255' > /sys/class/leds/LED1-B/brightness
+busybox echo '255' > /sys/devices/i2c-10/10-0040/leds/as3677::rgb3/brightness
+busybox echo '255' > /sys/devices/i2c-10/10-0047/leds/LED3-B/brightness
+busybox echo '255' > /sys/bus/ic2/devices/10-0040/leds/as3677::rgb1/brightness
+busybox echo '255' > /sys/bus/ic2/devices/10-0047/leds/LED3-B/brightness
+busybox echo '255' > /sys/bus/ic2/devices/i2c-10/10-0040/leds/as3677::rgb2/brightness
+busybox sleep 1
+
+# trigger vibration
+busybox echo '80' > /sys/class/timed_output/vibrator/enable
+
+# disable LED bar
 busybox echo '0' > /sys/devices/i2c-10/10-0040/leds/as3677::rgb1/brightness
 busybox echo '0' > /sys/class/leds/LED2-G/brightness
+busybox echo '0' > /sys/class/leds/LED1-B/brightness
 busybox echo '0' > /sys/devices/i2c-10/10-0040/leds/as3677::rgb3/brightness
-
-# In animaton
-for i in $(/sbin/busybox seq 0 255)
-do
-    busybox echo $i > /sys/devices/i2c-10/10-0040/leds/as3677::rgb1/brightness
-    busybox echo $i > /sys/class/leds/LED2-G/brightness
-    busybox echo $i > /sys/devices/i2c-10/10-0040/leds/as3677::rgb3/brightness
-done 
-
-# Trigger vibration
-busybox echo '50' > /sys/class/timed_output/vibrator/enable
-
-# Out animaton
-for i in $(/sbin/busybox seq 0 255)
-do
-    j=$((255 - $i))
-    
-    busybox echo $j > /sys/devices/i2c-10/10-0040/leds/as3677::rgb1/brightness
-    busybox echo $j > /sys/class/leds/LED2-G/brightness
-    busybox echo $j > /sys/devices/i2c-10/10-0040/leds/as3677::rgb3/brightness
-done
+busybox echo '0' > /sys/devices/i2c-10/10-0047/leds/LED3-B/brightness
+busybox echo '0' > /sys/bus/ic2/devices/10-0040/leds/as3677::rgb1/brightness
+busybox echo '0' > /sys/bus/ic2/devices/10-0047/leds/LED3-B/brightness
+busybox echo '0' > /sys/bus/ic2/devices/i2c-10/10-0040/leds/as3677::rgb2/brightness

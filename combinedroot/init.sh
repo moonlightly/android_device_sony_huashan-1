@@ -34,7 +34,7 @@ fi
 
 # keycheck
 busybox cat ${BOOTREC_EVENT} > /dev/keycheck&
-busybox sleep 3
+busybox sleep 1
 
 # android ramdisk
 load_image=/sbin/ramdisk.cpio
