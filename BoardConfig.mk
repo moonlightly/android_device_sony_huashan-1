@@ -34,6 +34,9 @@ BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
 # Use legacy MMAP for pre-lollipop blobs
 BOARD_USES_LEGACY_MMAP := true
 
+# Needed for blobs
+TARGET_RELEASE_CPPFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
+
 # Time
 BOARD_USES_QC_TIME_SERVICES := true
 
@@ -69,9 +72,6 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/sony/huashan/bluetooth
 
 # RIL
 BOARD_PROVIDES_LIBRIL := true
-
-# Needed for blobs
-TARGET_RELEASE_CPPFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 
 # Vold
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file

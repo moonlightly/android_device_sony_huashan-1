@@ -26,17 +26,6 @@ on boot
     chown system system /sys/class/leds/lcd-backlight2/brightness
     chmod 660 /sys/class/leds/lcd-backlight2/brightness
 
-    #LEDS
-    chown system system /sys/class/leds/as3677::rgb1/use_pattern
-    chown system system /sys/class/leds/as3677::rgb2/use_pattern
-    chown system system /sys/class/leds/as3677::rgb3/use_pattern
-    chown system system /sys/devices/i2c-10/10-0040/als_result
-    chown system system /sys/devices/i2c-10/10-0040/pattern_data
-    chown system system /sys/devices/i2c-10/10-0040/pattern_delay
-    chown system system /sys/devices/i2c-10/10-0040/pattern_duration_secs
-    chown system system /sys/devices/i2c-10/10-0040/pattern_use_softdim
-    chown system system /sys/devices/i2c-10/10-0040/dim_time
-
     # Vibrator
     chown root system /sys/class/timed_output/vibrator/level
     chown root system /sys/devices/platform/mdp.525057/kcal
