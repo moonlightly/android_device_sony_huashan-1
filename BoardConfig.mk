@@ -138,7 +138,6 @@ BOARD_SEPOLICY_UNION += \
     radio.te \
     rild.te \
     rmt_storage.te \
-    sdcardd.te \
     secchand.te \
     setup_fs.te \
     shell.te \
