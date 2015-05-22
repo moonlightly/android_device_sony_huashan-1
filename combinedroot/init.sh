@@ -26,12 +26,6 @@ busybox mknod -m 666 /dev/null c 1 3
 busybox mount -t proc proc /proc
 busybox mount -t sysfs sysfs /sys
 
-# trigger amber LED
-if [ -e /sbin/bootrec-led ]
-then
-	./sbin/bootrec-led
-fi
-
 # keycheck
 busybox cat ${BOOTREC_EVENT} > /dev/keycheck&
 busybox sleep 1
@@ -43,6 +37,7 @@ load_image=/sbin/ramdisk.cpio
 if [ -s /dev/keycheck ] || busybox grep -q warmboot=0x77665502 /proc/cmdline ; then
 	busybox echo 'RECOVERY BOOT' >>boot.txt
 	# recovery ramdisk
+	busybox echo '100' > /sys/class/timed_output/vibrator/enable
 	busybox mknod -m 600 ${BOOTREC_FOTA_NODE}
 	busybox mount -o remount,rw /
 	busybox ln -sf /sbin/busybox /sbin/sh
@@ -56,6 +51,7 @@ fi
 
 # kill the keycheck process
 busybox pkill -f "busybox cat ${BOOTREC_EVENT}"
+busybox echo '0' > /sys/class/timed_output/vibrator/enable
 
 busybox umount /proc
 busybox umount /sys
