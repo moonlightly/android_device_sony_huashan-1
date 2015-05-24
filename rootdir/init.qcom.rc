@@ -93,8 +93,6 @@ on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
 
-    exec /system/bin/sh /init.qcom.early_boot.sh ${ro.board.platform}
-
     # Permissions for AKM8963 sensor
     chown system system /data/misc/akm_set.txt
 
@@ -523,11 +521,15 @@ service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 -w 1023 /mnt/media_rw/us
     class late_start
     disabled
 
-service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
+service thermanager /system/bin/thermanager /system/etc/thermanager.xml
     class main
     user root
     group root
-    disabled
+
+service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
+    class main
+    user root
+    group root system
 
 # bugreport is triggered by holding down volume down, volume up and power
 service bugreport /system/bin/dumpstate -d -p -B \
@@ -536,11 +538,6 @@ service bugreport /system/bin/dumpstate -d -p -B \
     disabled
     oneshot
     keycodes 114 115 116
-
-service qcom-sh /system/bin/sh /init.qcom.sh
-    class late_start
-    user root
-    oneshot
 
 service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
     class late_start
@@ -558,12 +555,6 @@ service illumination /system/bin/illumination_service
 service ta_qmi_service /system/bin/ta_qmi_service
     user root
     disabled
-
-# Start system_monitor
-service system_monitor /system/bin/system_monitor
-    socket sysmon stream 0660 root system
-    class core
-    user root
 
 service rmt_storage /system/bin/rmt_storage
     class core
