@@ -159,10 +159,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     hci_qcomm_init
 
-# Lights wrapper
-PRODUCT_PACKAGES += \
-    libals
-
 # Camera
 PRODUCT_PACKAGES += \
     camera.sony \

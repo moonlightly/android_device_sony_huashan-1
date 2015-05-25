@@ -168,17 +168,6 @@
 /sys/devices/i2c-12/12-*  enable  0664 system system
 /sys/devices/i2c-12/12-*  poll_delay 0664 system system
 
-# ALS
-/sys/devices/i2c-10/10-0040 als_on 0660 system camera
-/sys/devices/i2c-10/10-0040 als_result 0440 system system
-/sys/devices/i2c-10/10-0040/leds/as3677* brightness 0660 system system
-/sys/devices/i2c-10/10-0040/leds/as3677* use_pattern 0660 system system
-/sys/devices/i2c-10/10-0040/leds/as3677* max_brightness 0640 system system
-/sys/devices/i2c-10/10-0040/leds/lcd-backlight1 brightness 0660 system system
-/sys/devices/i2c-10/10-0040/leds/lcd-backlight1 max_brightness 0640 system system
-/sys/devices/i2c-10/10-0040/leds/lcd-backlight2 brightness 0660 system system
-/sys/devices/i2c-10/10-0040/leds/lcd-backlight2 max_brightness 0640 system system
-
 # BT
 /dev/hidraw0                                     0666  system  system
 /dev/hidraw1                                     0666  system  system

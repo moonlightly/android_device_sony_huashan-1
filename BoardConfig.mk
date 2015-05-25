@@ -124,6 +124,7 @@ BOARD_SEPOLICY_UNION += \
     bootanim.te \
     file.te \
     hostapd.te \
+    illumination.te \
     init.te \
     init_shell.te \
     kernel.te \
