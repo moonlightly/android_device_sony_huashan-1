@@ -164,7 +164,8 @@ PRODUCT_PACKAGES += \
     camera.sony \
     camera.msm8960 \
     libmmcamera_interface \
-    libmmcamera_interface2
+    libmmcamera_interface2 \
+    CameraNext
 
 # Force use old camera api
 PRODUCT_PROPERTY_OVERRIDES += \
