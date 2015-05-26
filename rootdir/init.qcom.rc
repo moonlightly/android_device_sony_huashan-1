@@ -108,6 +108,9 @@ on early-boot
     write /sys/module/pm8921_charger/parameters/enable_lowbatt_detect 1
 
 on boot
+    # Bring CPUs online early
+    write /sys/devices/system/cpu/cpu1/online 1
+
     exec /system/bin/btnvtool -O
     chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
@@ -356,17 +359,19 @@ on property:bluetooth.hciattach=false
 
 # QMUX must be in multiple groups to support external process connections
 service qmuxd /system/bin/qmuxd
-    class main
+    class late_start
     user radio
     group radio audio bluetooth gps qcom_diag net_bt_stack
+    disabled
 
 # SONY: TrimArea Daemon
 # Last 2 args: start block(blk size 128k), number of blocks(partitionsize(kb)/128(kb))
 service tad_static /sbin/tad_static /dev/block/mmcblk0 1,16
+    class core
     user root
     group root
     socket tad stream 0660 system system
-    class trimarea
+    disabled
 
 service updatemiscta /system/bin/updatemiscta
     class main
@@ -374,7 +379,9 @@ service updatemiscta /system/bin/updatemiscta
     oneshot
 
 service netmgrd /system/bin/netmgrd
-    class main
+    class late_start
+    group radio
+    disabled
 
 # start GNSS/Sensor interface daemon
 service gsiff_daemon /system/bin/gsiff_daemon
@@ -383,7 +390,7 @@ service gsiff_daemon /system/bin/gsiff_daemon
     group gps qcom_oncrpc net_raw
 
 service qseecomd /system/bin/qseecomd
-    class late_start
+    class core
     user system
     group system
 
