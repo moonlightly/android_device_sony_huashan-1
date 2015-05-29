@@ -20,6 +20,13 @@ import init.sony.usb.rc
 on early-init
     mount debugfs debugfs /sys/kernel/debug
     symlink /data/tombstones /tombstones
+    write /sys/block/mmcblk0/queue/read_ahead_kb 512
+    write /sys/block/mmcblk1/queue/read_ahead_kb 512
+
+    # enable kernel samepage merging
+    write /sys/kernel/mm/ksm/pages_to_scan 256
+    write /sys/kernel/mm/ksm/sleep_millisecs 1500
+    write /sys/kernel/mm/ksm/run 1
 
 on init
     mkdir /mnt/shell/emulated 0700 shell shell
@@ -53,10 +60,6 @@ on init
 
     mkdir /dev/bus 0755 root root
     mkdir /dev/bus/usb 0755 root root
-
-    write /sys/module/subsystem_restart/parameters/restart_level 3
-    write /sys/module/subsystem_restart/parameters/max_restarts 8
-    write /sys/module/subsystem_restart/parameters/max_history_time 3600
 
 on fs
     mount_all ./fstab.qcom
@@ -246,16 +249,19 @@ on post-fs-data
     chown system system /sys/devices/platform/msm_sdcc.3/polling
     chown system system /sys/devices/platform/msm_sdcc.4/polling
 
-    chown system system /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/pwrscale/policy
-
     # Create the symlink to qcn wpa_supplicant folder for ar6000 wpa_supplicant
     mkdir /data/system 0775 system system
 
     # Create directories for gpsone_daemon services
     mkdir /data/misc/gpsone_d 0770 system gps
 
-    # Provide the access to hostapd.conf only to root and group
-    chmod 0660 /data/hostapd/hostapd.conf
+    # Create directories for QuIPS
+    mkdir /data/misc/quipc 0770 gps system
+
+    # Create directories for Location services
+    mkdir /data/misc/location 0770 gps gps
+    mkdir /data/misc/location/mq 0770 gps gps
+    mkdir /data/misc/location/xtwifi 0770 gps gps
 
     mkdir /data/audio 0770 media audio
 
@@ -266,8 +272,6 @@ on post-fs-data
     mkdir /data/time 0700 system system
 
     setprop vold.post_fs_data_done 1
-
-    rm /data/local/tmp/adreno_config.txt
 
     # Kgsl governors
     chown root system /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/pwrscale/policy
@@ -339,7 +343,7 @@ service mac-update /system/bin/mac-update
 
 #BT service
 service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
-    class late_start
+    class main
     user bluetooth
     group bluetooth net_bt_admin system net_bt_stack
     disabled
@@ -463,7 +467,7 @@ service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 -w 1023 /mnt/media_rw/us
     disabled
 
 service thermanager /system/bin/thermanager /system/etc/thermanager.xml
-    class core
+    class main
     user root
     group root
 
@@ -481,7 +485,7 @@ service bugreport /system/bin/dumpstate -d -p -B \
     keycodes 114 115 116
 
 service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
-    user class late_start
+    user root
     group system
     disabled
     oneshot
