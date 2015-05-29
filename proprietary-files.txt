@@ -326,7 +326,7 @@ lib/libta.so
 # Time
 #
 bin/time_daemon
--lib/libtime_genoff.so
+lib/libtime_genoff.so
 
 #
 # Touchscreen
