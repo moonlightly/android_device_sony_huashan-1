@@ -168,6 +168,12 @@
 /sys/devices/i2c-12/12-*  enable  0664 system system
 /sys/devices/i2c-12/12-*  poll_delay 0664 system system
 
+# LibLight
+/sys/devices/i2c-10/10-0047/leds/* brightness 0666 system system
+/sys/devices/i2c-10/10-0047/leds/* led_current 0666 system system
+/sys/devices/i2c-10/10-0040/leds/lcd-* brightness 0666 system system
+/sys/devices/i2c-10/10-0040/leds/lcd-* max_brightness 0666 system system
+
 # BT
 /dev/hidraw0                                     0666  system  system
 /dev/hidraw1                                     0666  system  system
