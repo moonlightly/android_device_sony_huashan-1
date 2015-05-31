@@ -50,7 +50,7 @@ public class HighTouchSensitivity {
      * failed; true in any other case.
      */
     public static boolean setEnabled(boolean status) {
-        return FileUtils.writeLine(GLOVEMODE_PATH, (status ? "20" : "100"));
+        return FileUtils.writeLine(GLOVEMODE_PATH, (status ? "20" : "280"));
     }
 
 }
