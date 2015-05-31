@@ -121,8 +121,6 @@ BOARD_SEPOLICY_DIRS += \
 
 BOARD_SEPOLICY_UNION += \
     file_contexts \
-    property_contexts \
-    bootanim.te \
     file.te \
     hostapd.te \
     illumination.te \
@@ -133,12 +131,13 @@ BOARD_SEPOLICY_UNION += \
     mediaserver.te \
     mpdecision.te \
     netd.te \
-    netmgrd.te \
     platform_app.te \
     property.te \
+    property_contexts \
     radio.te \
     rild.te \
     rmt_storage.te \
+    sdcardd.te \
     secchand.te \
     setup_fs.te \
     shell.te \
