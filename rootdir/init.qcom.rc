@@ -77,10 +77,6 @@ on fs
     class_start trimarea
     exec /sbin/wait4tad_static
 
-    # SONY: Start early TA-users
-    exec /system/bin/taimport
-    start ta_qmi_service
-
     restorecon /data/etc/bluetooth_bdaddr
     restorecon /data/etc/wlan_macaddr0
     restorecon /data/etc/wlan_macaddr1
@@ -138,6 +134,14 @@ on boot
     chmod 0755 /system/bin/ip
 
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
+
+    # port-bridge
+    chmod 0660 /dev/smd0
+    chown system system /dev/smd0
+
+    # BT DUN port-bridge
+    chmod 0660 /dev/smd7
+    chown bluetooth bluetooth /dev/smd7
 
     # FM
     chmod 0644 /dev/radio0
@@ -206,6 +210,10 @@ on boot
 
 # msm specific files that need to be created on /data
 on post-fs-data
+    # Used by taimport for MAC addresses
+    mkdir /data/etc 0755 root shell
+    start taimport
+
     mkdir /data/media 0770 media_rw media_rw
 
     # Create the directories used by the Wireless subsystem
@@ -215,10 +223,6 @@ on post-fs-data
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     # to observe dnsmasq.leases file for dhcp information of soft ap.
     chown dhcp system /data/misc/dhcp
-
-    # Update WIFI MAC address
-    mkdir /data/misc/wifi/prima 0775 wifi wifi
-    exec /system/bin/mac-update
 
     write /sys/module/wcnss_ssr_8960/parameters/enable_riva_ssr 1
     write /sys/devices/platform/wcnss_wlan.0/serial_number ${ro.serialno}
@@ -240,17 +244,27 @@ on post-fs-data
     chmod 0664 /sys/devices/platform/msm_sdcc.3/polling
     chmod 0664 /sys/devices/platform/msm_sdcc.4/polling
 
+    # QCOM Sensors
+    mkdir /data/system 0775 system system
+    mkdir /data/system/sensors 0775 system system
+    mkdir /data/misc/sensors 0775 system system
+    write /data/system/sensors/settings 1
+    chmod 664 /data/system/sensors/settings
+    chown system /data/system/sensors/settings
+
     # Chown polling nodes as needed from UI running on system server
     chown system system /sys/devices/platform/msm_sdcc.1/polling
     chown system system /sys/devices/platform/msm_sdcc.2/polling
     chown system system /sys/devices/platform/msm_sdcc.3/polling
     chown system system /sys/devices/platform/msm_sdcc.4/polling
 
-    # Create the symlink to qcn wpa_supplicant folder for ar6000 wpa_supplicant
-    mkdir /data/system 0775 system system
+    chown system system /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/pwrscale/policy
 
     # Create directories for gpsone_daemon services
     mkdir /data/misc/gpsone_d 0770 system gps
+
+    # Update WIFI MAC address
+    mkdir /data/misc/wifi/prima 0775 wifi wifi
 
     # Create directories for QuIPS
     mkdir /data/misc/quipc 0770 gps system
@@ -262,6 +276,9 @@ on post-fs-data
 
     mkdir /data/audio 0770 media audio
 
+    # Enable Power save functionality for modem
+    setprop persist.radio.add_power_save 1
+
     # Camera
     mkdir /data/camera 0771 root camera
 
@@ -269,6 +286,12 @@ on post-fs-data
     mkdir /data/time 0700 system system
 
     setprop vold.post_fs_data_done 1
+
+    rm /data/local/tmp/adreno_config.txt
+
+    # communicate with mpdecision and thermald
+    mkdir /dev/socket/mpdecision 0770 system system
+    chmod 2770 /dev/socket/mpdecision
 
     # Enable Power modes and set the CPU Freq Sampling rates
     write /sys/module/rpm_resources/enable_low_power/L2_cache 1
@@ -392,9 +415,9 @@ on charger
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd
 
-# Update WIFI MAC address
+# Update Wi-Fi MAC address
 service mac-update /system/bin/mac-update
-    class main
+    class late_start
     user wifi
     oneshot
 
@@ -425,6 +448,13 @@ service tad_static /sbin/tad_static /dev/block/mmcblk0 1,16
     group root
     socket tad stream 0660 system system
     class trimarea
+
+service taimport /system/bin/taimport
+    class main
+    user root
+    group system
+    disabled
+    oneshot
 
 service updatemiscta /system/bin/updatemiscta
     class main
@@ -524,10 +554,10 @@ service thermanager /system/bin/thermanager /system/etc/thermanager.xml
     user root
     group root
 
-service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
+service mpdecision /system/bin/mpdecision --avg_comp
     class main
     user root
-    group root system
+    disabled
 
 service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
     class late_start
@@ -541,11 +571,6 @@ service illumination /system/bin/illumination_service
     class main
     user root
 
-# Trim Area QMI service
-service ta_qmi_service /system/bin/ta_qmi_service
-    user root
-    disabled
-
 service rmt_storage /system/bin/rmt_storage
     class core
     user root
@@ -554,6 +579,11 @@ service irsc_util /system/bin/irsc_util "/etc/sec_config"
     class main
     user root
     oneshot
+
+# Trim Area QMI service
+service ta_qmi_service /system/bin/ta_qmi_service
+    user root
+    class main
 
 service wcnss-service /system/bin/wcnss_service
     class late_start
@@ -580,15 +610,15 @@ service setup_fs /system/bin/setup_fs /dev/block/platform/msm_sdcc.1/by-name/Use
 
 on property:sys.perf.profile=0
     start mpdecision
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "ondemand"
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "ondemand"
-    write /sys/class/kgsl/kgsl-3d0/pwrscale/trustzone/governor "ondemand"
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "powersave"
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "powersave"
+    write /sys/class/kgsl/kgsl-3d0/pwrscale/trustzone/governor "powersave"
 
 on property:sys.perf.profile=1
     start mpdecision
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "interactive"
-    write /sys/class/kgsl/kgsl-3d0/pwrscale/trustzone/governor "ondemand"
+    write /sys/class/kgsl/kgsl-3d0/pwrscale/trustzone/governor "interactive"
 
 on property:sys.perf.profile=2
     stop mpdecision
@@ -597,8 +627,3 @@ on property:sys.perf.profile=2
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "performance"
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "performance"
     write /sys/class/kgsl/kgsl-3d0/pwrscale/trustzone/governor "performance"
-
-on property:sys.boot_completed=1
-    # taimport keeps spamming the log unnecessarily,
-    # stop it as it would've done it's job by now.
-    stop taimport
