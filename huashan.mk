@@ -165,7 +165,9 @@ PRODUCT_PACKAGES += \
     camera.msm8960 \
     libmmcamera_interface \
     libmmcamera_interface2 \
-    CameraNext
+    CameraNext \
+    libjni_mosaic \
+    libjni_tinyplanet
 
 # Force use old camera api
 PRODUCT_PROPERTY_OVERRIDES += \
