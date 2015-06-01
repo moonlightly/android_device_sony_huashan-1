@@ -56,15 +56,14 @@ busybox echo '50' > /sys/class/timed_output/vibrator/enable
 busybox cat ${BOOTREC_EVENT} > /dev/keycheck&
 
 # lights wave animation
-echo '128' > $RED3_LED_FILE
-echo '128' > $RED3C_LED_FILE
-busybox sleep 0.5
 echo '128' > $GREEN1_LED_FILE
 echo '128' > $GREEN1C_LED_FILE
 busybox sleep 0.5
+echo '128' > $RED3_LED_FILE
+echo '128' > $RED3C_LED_FILE
 echo '128' > $BLUE2_LED_FILE
 echo '128' > $BLUE2C_LED_FILE
-busybox sleep 1
+busybox sleep 2
 
 # lights off
 echo '0' > $GREEN1_LED_FILE
@@ -82,12 +81,12 @@ if [ -s /dev/keycheck ] || busybox grep -q warmboot=0x77665502 /proc/cmdline ; t
 	busybox echo 'RECOVERY BOOT' >>boot.txt
 	# recovery ramdisk
 	busybox echo '100' > /sys/class/timed_output/vibrator/enable
-	echo '128' > $RED1_LED_FILE
-	echo '128' > $RED1C_LED_FILE
-	echo '128' > $RED2_LED_FILE
-	echo '128' > $RED2C_LED_FILE
-	echo '128' > $RED3_LED_FILE
-	echo '128' > $RED3C_LED_FILE
+	echo '128' > $BLUE1_LED_FILE
+	echo '128' > $BLUE1C_LED_FILE
+	echo '128' > $BLUE2_LED_FILE
+	echo '128' > $BLUE2C_LED_FILE
+	echo '128' > $BLUE3_LED_FILE
+	echo '128' > $BLUE3C_LED_FILE
 	busybox sleep 1
 	busybox mknod -m 600 ${BOOTREC_FOTA_NODE}
 	busybox mount -o remount,rw /
