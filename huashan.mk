@@ -48,7 +48,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/fstab.qcom:recovery/root/fstab.qcom \
     $(LOCAL_PATH)/rootdir/init.recovery.qcom.rc:root/init.recovery.qcom.rc \
     $(LOCAL_PATH)/rootdir/system/etc/init.qcom.bt.sh:system/etc/init.qcom.bt.sh \
-    $(LOCAL_PATH)/rootdir/system/etc/init.qcom.fm.sh:system/etc/init.qcom.fm.sh \
+	$(LOCAL_PATH)/rootdir/system/etc/init.qcom.fm.sh:system/etc/init.qcom.fm.sh \
     $(LOCAL_PATH)/rootdir/ueventd.qcom.rc:root/ueventd.qcom.rc
 
 # Additional sbin stuff
@@ -165,7 +165,9 @@ PRODUCT_PACKAGES += \
     camera.msm8960 \
     libmmcamera_interface \
     libmmcamera_interface2 \
-    CameraNext
+    CameraNext \
+    libjni_mosaic \
+    libjni_tinyplanet
 
 # Force use old camera api
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -210,15 +212,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Audio
 PRODUCT_PROPERTY_OVERRIDES += \
-    qcom.audio.init=complete \
     persist.audio.fluence.mode=endfire \
-    persist.audio.vr.enable=false \
     persist.audio.handset.mic=digital \
     persist.audio.lowlatency.rec=false \
-    media.aac_51_output_enabled=true \
-    ro.qc.sdk.audio.ssr=false \
-    ro.qc.sdk.audio.fluencetype=fluence \
-    lpa.decode=true
+    af.resampler.quality=255 \
+    ro.qc.sdk.audio.fluencetype=fluence
 
 # QCOM Location
 PRODUCT_PROPERTY_OVERRIDES += \

@@ -96,9 +96,10 @@ TARGET_OTA_ASSERT_DEVICE := C5302,C5303,C5306,huashan
 BOARD_USES_LEGACY_ALSA_AUDIO := true
 TARGET_USES_QCOM_COMPRESSED_AUDIO := true
 BOARD_HAVE_NEW_QCOM_CSDCLIENT := true
-
-# QC AV Enhancements
-TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
+BOARD_HAVE_CSD_FAST_CALL_SWITCH := true
+BOARD_USES_FLUENCE_INCALL := true
+BOARD_USES_SEPERATED_AUDIO_INPUT := true
+BOARD_USES_SEPERATED_VOICE_SPEAKER_MIC := true
 
 #Fm Radio
 AUDIO_FEATURE_ENABLED_FM := true
@@ -120,8 +121,6 @@ BOARD_SEPOLICY_DIRS += \
 
 BOARD_SEPOLICY_UNION += \
     file_contexts \
-    property_contexts \
-    bootanim.te \
     file.te \
     hostapd.te \
     illumination.te \
@@ -132,12 +131,13 @@ BOARD_SEPOLICY_UNION += \
     mediaserver.te \
     mpdecision.te \
     netd.te \
-    netmgrd.te \
     platform_app.te \
     property.te \
+    property_contexts \
     radio.te \
     rild.te \
     rmt_storage.te \
+    sdcardd.te \
     secchand.te \
     setup_fs.te \
     shell.te \
