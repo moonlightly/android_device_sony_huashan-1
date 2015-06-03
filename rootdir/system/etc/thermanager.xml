@@ -16,20 +16,20 @@
 		
 		<!-- generic cpufreq -->
 		<resource name="cpu0" type="sysfs">/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq</resource>
-		<resource name="cpu1" type="sysfs">/sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq</resource>
+		<!--  <resource name="cpu1" type="sysfs">/sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq</resource> -->
 
 		<resource name="cpu" type="union">
 			<resource name="cpu0" />
-			<resource name="cpu1" />
+			<!-- <resource name="cpu1" /> -->
 		</resource>
 
 		<!-- device-specific aliases -->
 		<resource name="temp-cpu0" type="alias" resource="zone0" />
-		<resource name="temp-cpu1" type="alias" resource="zone3" />
+		<!-- <resource name="temp-cpu1" type="alias" resource="zone3" /> -->
 
 		<resource name="temp-cpu" type="union">
 			<resource name="temp-cpu0" />
-			<resource name="temp-cpu1" />
+			<!-- <resource name="temp-cpu1" /> -->
 		</resource>
 
 		<resource name="temp-extra" type="union">
