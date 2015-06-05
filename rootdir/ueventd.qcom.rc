@@ -169,13 +169,12 @@
 /sys/devices/i2c-12/12-*  poll_delay 0664 system system
 
 # LibAls AS3677
-/sys/devices/i2c-10/10-0040            adc_als_value         0777 system system
-/sys/devices/i2c-10/10-0040            als_on                0777 system camera
-/sys/devices/i2c-10/10-0040            als_group1            0777 system system
-/sys/devices/i2c-10/10-0040/leds/lcd-* als_group             0660 system system
+/sys/devices/i2c-10/10-0040            adc_als_value         0664 system system
+/sys/devices/i2c-10/10-0040            als_on                0664 system camera
+/sys/devices/i2c-10/10-0040            als_group1            0664 system system
+/sys/devices/i2c-10/10-0040/leds/lcd-* als_group             0666 system system
 /sys/devices/i2c-10/10-0040/leds/lcd-* brightness            0660 system system
-/sys/devices/i2c-10/10-0040/leds/lcd-* max_brightness        0660 system system
-/sys/devices/i2c-10/10-0040/leds/lcd-* als_group             0660 system system
+/sys/devices/i2c-10/10-0040/leds/lcd-* max_brightness        0640 system system
 
 # LibLights AS3665
 /sys/devices/i2c-10/10-0047            audio_agc_ctrl        0660 system system
