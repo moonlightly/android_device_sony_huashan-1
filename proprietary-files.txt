@@ -92,7 +92,7 @@ lib/libcald_util.so
 # CPU
 #
 bin/mpdecision
-lib/libqc-opt.so:vendor/lib/libqc-opt.so
+vendor/lib/libqti-perfd-client.so
 lib/libthermalclient.so
 
 #
@@ -131,9 +131,6 @@ bin/irsc_util
 #
 # Lights
 #
-bin/illumination_service
-lib/hw/lights.default.so:lib/hw/lights.vendor.default.so
-lib/liblights-core.so
 lib/libsys-utils.so
 
 #
@@ -302,7 +299,6 @@ etc/firmware/tzsuntory.mdt
 # Sensors
 #
 lib/hw/sensors.default.so
-lib/libals.so
 
 #
 # System Checks
@@ -310,45 +306,6 @@ lib/libals.so
 bin/efsks
 bin/ks
 bin/qcks
-
-#
-# System Monitor
-#
-bin/system_monitor
-etc/permissions/com.sonyericsson.sysmon.xml
-framework/com.sonyericsson.sysmon.jar
-lib/libsysmon.so
-lib/libsysmon_idd.so
-lib/libsysmon_jni.so
-lib/sysmon/sysmon_batt_therm.so
-lib/sysmon/sysmon_charge_current_limit_level0.so
-lib/sysmon/sysmon_charge_current_limit_level1.so
-lib/sysmon/sysmon_charge_current_limit_level2.so
-lib/sysmon/sysmon_charge_current_limit_level3.so
-lib/sysmon/sysmon_corelimit.so
-lib/sysmon/sysmon_disable_charging1.so
-lib/sysmon/sysmon_disable_charging2.so
-lib/sysmon/sysmon_enable_charging.so
-lib/sysmon/sysmon_gpu_perflevel.so
-lib/sysmon/sysmon_lcd_brightness_level.so
-lib/sysmon/sysmon_msm_thermal_disable.so
-lib/sysmon/sysmon_pa_therm0.so
-lib/sysmon/sysmon_pa_therm1.so
-lib/sysmon/sysmon_perflevel.so
-lib/sysmon/sysmon_pm8921_tz.so
-lib/sysmon/sysmon_test_sensor.so
-lib/sysmon/sysmon_tsens_tz_sensor0.so
-lib/sysmon/sysmon_tsens_tz_sensor1.so
-lib/sysmon/sysmon_tsens_tz_sensor2.so
-lib/sysmon/sysmon_tsens_tz_sensor3.so
-lib/sysmon/sysmon_tsens_tz_sensor4.so
-lib/sysmon/sysmon_usb_current_limit_level0.so
-lib/sysmon/sysmon_usb_current_limit_level1.so
-lib/sysmon/sysmon_usb_current_limit_level2.so
-lib/sysmon/sysmon_usb_current_limit_level3.so
-lib/sysmon/sysmon_usb_current_limit_level4.so
-lib/sysmon/sysmon_wlan_limit.so
-lib/sysmon/sysmon_xo_therm.so
 
 #
 # TA
@@ -403,4 +360,3 @@ etc/firmware/wcnss.mdt
 etc/firmware/wlan/prima/WCNSS_cfg.dat
 etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini
 etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
-

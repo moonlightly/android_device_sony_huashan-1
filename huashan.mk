@@ -104,9 +104,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/system/etc/hw_config.sh:system/etc/hw_config.sh
 
-# Sony system_monitor
+# Thermal monitor configuration
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/system/etc/sysmon.cfg:system/etc/sysmon.cfg
+    $(LOCAL_PATH)/rootdir/system/etc/thermanager.xml:system/etc/thermanager.xml
 
 # NFC Support
 PRODUCT_PACKAGES += \
@@ -171,6 +171,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     sensors.default
 
+# Thermal management
+PRODUCT_PACKAGES += \
+    thermanager
+
+
 # Wifi service
 PRODUCT_PACKAGES += \
     mac-update \
@@ -194,6 +199,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.transmitpower=true \
     persist.radio.add_power_save=1 \
     rild.libpath=/system/lib/libril-qc-qmi-1.so
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.extension_library=libqti-perfd-client.so
 
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -240,4 +248,3 @@ $(call inherit-product, vendor/sony/huashan/huashan-vendor.mk)
 
 # Include own Adreno blobs
 $(call inherit-product, vendor/sony/huashan/huashan-adreno-blobs.mk)
-

@@ -124,6 +124,12 @@ on boot
     mkdir /dev/socket/qmux_gps 0770 gps gps
     chmod 2770 /dev/socket/qmux_gps
 
+    #Create PERFD deamon related dirs
+    mkdir /data/misc/perfd 0755 root system
+    chmod 2755 /data/misc/perfd
+    mkdir /data/system/perfd 0770 root system
+    chmod 2770 /data/system/perfd
+
     setprop ro.telephony.call_ring.multiple false
 
     # Remove SUID bit for iproute2 ip tool
@@ -264,6 +270,8 @@ on post-fs-data
     mkdir /data/time 0700 system system
 
     setprop vold.post_fs_data_done 1
+
+    rm /data/local/tmp/adreno_config.txt
 
     # Enable Power modes and set the CPU Freq Sampling rates
     write /sys/module/rpm_resources/enable_low_power/L2_cache 1
@@ -514,19 +522,15 @@ service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 -w 1023 /mnt/media_rw/us
     class late_start
     disabled
 
-service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
+service thermanager /system/bin/thermanager /system/etc/thermanager.xml
     class main
     user root
     group root
-    disabled
 
-# bugreport is triggered by holding down volume down, volume up and power
-service bugreport /system/bin/dumpstate -d -p -B \
-        -o /data/data/com.android.shell/files/bugreports/bugreport
+service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
     class main
+    user root
     disabled
-    oneshot
-    keycodes 114 115 116
 
 service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
     class late_start
@@ -535,21 +539,10 @@ service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
     disabled
     oneshot
 
-service illumination /system/bin/illumination_service
-    socket illumination stream 0666 root system
-    class main
-    user root
-
 # Trim Area QMI service
 service ta_qmi_service /system/bin/ta_qmi_service
     user root
     disabled
-
-# Start system_monitor
-service system_monitor /system/bin/system_monitor
-    socket sysmon stream 0660 root system
-    class core
-    user root
 
 service rmt_storage /system/bin/rmt_storage
     class core

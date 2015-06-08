@@ -34,6 +34,9 @@ BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
 # Use legacy MMAP for pre-lollipop blobs
 BOARD_USES_LEGACY_MMAP := true
 
+# Needed for blobs
+TARGET_RELEASE_CPPFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
+
 # Time
 BOARD_USES_QC_TIME_SERVICES := true
 
@@ -69,10 +72,6 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/sony/huashan/bluetooth
 
 # RIL
 BOARD_PROVIDES_LIBRIL := true
-BOARD_HAS_RIL_LEGACY_PAP := true
-
-# Needed for blobs
-TARGET_RELEASE_CPPFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 
 # Vold
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
@@ -102,9 +101,9 @@ BOARD_USES_FLUENCE_INCALL := true
 BOARD_USES_SEPERATED_AUDIO_INPUT := true
 BOARD_USES_SEPERATED_VOICE_SPEAKER_MIC := true
 
-# FM Radio
-QCOM_FM_ENABLED := true
+#Fm Radio
 AUDIO_FEATURE_ENABLED_FM := true
+QCOM_FM_ENABLED := true
 
 # Partition information
 BOARD_VOLD_MAX_PARTITIONS := 26
@@ -124,7 +123,6 @@ BOARD_SEPOLICY_UNION += \
     file_contexts \
     file.te \
     hostapd.te \
-    illumination.te \
     init.te \
     init_shell.te \
     kernel.te \
@@ -138,15 +136,16 @@ BOARD_SEPOLICY_UNION += \
     radio.te \
     rild.te \
     rmt_storage.te \
+    sdcardd.te \
     secchand.te \
     setup_fs.te \
     shell.te \
     surfaceflinger.te \
     system_app.te \
-    system_monitor.te \
     system_server.te \
     tad_static.te \
     ta_qmi_service.te \
+    thermanager.te \
     updatemiscta.te \
     vold.te
 
