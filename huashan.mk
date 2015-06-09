@@ -51,7 +51,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/fstab.qcom:recovery/root/fstab.qcom \
     $(LOCAL_PATH)/rootdir/init.recovery.qcom.rc:root/init.recovery.qcom.rc \
     $(LOCAL_PATH)/rootdir/system/etc/init.qcom.bt.sh:system/etc/init.qcom.bt.sh \
-	$(LOCAL_PATH)/rootdir/system/etc/init.qcom.fm.sh:system/etc/init.qcom.fm.sh \
+    $(LOCAL_PATH)/rootdir/system/etc/init.qcom.fm.sh:system/etc/init.qcom.fm.sh \
     $(LOCAL_PATH)/rootdir/ueventd.qcom.rc:root/ueventd.qcom.rc
 
 # Additional sbin stuff
@@ -110,7 +110,7 @@ PRODUCT_COPY_FILES += \
 
 # Thermal monitor configuration
 PRODUCT_COPY_FILES += \
-$(LOCAL_PATH)/rootdir/system/etc/thermanager.xml:system/etc/thermanager.xml
+    $(LOCAL_PATH)/rootdir/system/etc/thermanager.xml:system/etc/thermanager.xml
 
 # NFC Support
 PRODUCT_PACKAGES += \
@@ -184,7 +184,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     thermanager
 
-
 # Wifi service
 PRODUCT_PACKAGES += \
     mac-update \
@@ -244,7 +243,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # OpenGL ES 3.0
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196608
-	
+
 # call dalvik heap config
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 
