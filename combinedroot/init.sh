@@ -23,7 +23,6 @@ LED1_B_CURRENT_FILE="/sys/class/leds/LED1_B/led_current"
 LED2_B_CURRENT_FILE="/sys/class/leds/LED2_B/led_current"
 LED3_B_CURRENT_FILE="/sys/class/leds/LED3_B/led_current"
 
-# boot init
 busybox cd /
 busybox date >>boot.txt
 exec >>boot.txt 2>&1
@@ -46,10 +45,6 @@ busybox mknod -m 666 /dev/null c 1 3
 # mount filesystems
 busybox mount -t proc proc /proc
 busybox mount -t sysfs sysfs /sys
-
-# keycheck
-busybox echo '50' > /sys/class/timed_output/vibrator/enable
-busybox cat ${BOOTREC_EVENT} > /dev/keycheck&
 
 # LEDs activated
 echo '255' > $LED1_G_BRIGHTNESS_FILE
@@ -121,9 +116,16 @@ echo '0' > $LED1_R_CURRENT_FILE
 echo '0' > $LED2_R_CURRENT_FILE
 echo '0' > $LED3_R_CURRENT_FILE
 
-# boot decision - Recovery
-if [ -s /dev/keycheck ] || busybox grep -q warmboot=0x77665502 /proc/cmdline ; then
+# keycheck
+busybox cat ${BOOTREC_EVENT} > /dev/keycheck&
+busybox sleep 3
 
+# android ramdisk
+load_image=/sbin/ramdisk.cpio
+
+# boot decision
+if [ -s /dev/keycheck ] || busybox grep -q warmboot=0x77665502 /proc/cmdline ; then
+	busybox echo 'RECOVERY BOOT' >>boot.txt
 	# LEDs for recovery
 	busybox echo '100' > /sys/class/timed_output/vibrator/enable
 	echo '255' > $LED1_B_BRIGHTNESS_FILE
@@ -155,20 +157,15 @@ if [ -s /dev/keycheck ] || busybox grep -q warmboot=0x77665502 /proc/cmdline ; t
 	echo '0' > $LED1_B_CURRENT_FILE
 	echo '0' > $LED2_B_CURRENT_FILE
 	echo '0' > $LED3_B_CURRENT_FILE
-
-	# booting recovery
-	busybox echo 'RECOVERY BOOT' >>boot.txt
-	busybox sleep 1
+	# recovery ramdisk
 	busybox mknod -m 600 ${BOOTREC_FOTA_NODE}
 	busybox mount -o remount,rw /
 	busybox ln -sf /sbin/busybox /sbin/sh
 	extract_elf_ramdisk -i ${BOOTREC_FOTA} -o /sbin/ramdisk-recovery.cpio -t / -c
 	busybox rm /sbin/sh
 	load_image=/sbin/ramdisk-recovery.cpio
-
-# boot decision - Android
 else
-
+	busybox echo 'ANDROID BOOT' >>boot.txt
 	# LEDs for Android
 	echo '255' > $LED1_G_BRIGHTNESS_FILE
 	echo '255' > $LED2_G_BRIGHTNESS_FILE
@@ -199,24 +196,19 @@ else
 	echo '0' > $LED1_G_CURRENT_FILE
 	echo '0' > $LED2_G_CURRENT_FILE
 	echo '0' > $LED3_G_CURRENT_FILE
-	
-	# booting Android
-	busybox echo 'ANDROID BOOT' >>boot.txt
-	load_image=/sbin/ramdisk.cpio
-
 fi
 
 # kill the keycheck process
 busybox pkill -f "busybox cat ${BOOTREC_EVENT}"
 busybox echo '0' > /sys/class/timed_output/vibrator/enable
 
-# final unmount
+# unpack the ramdisk image
+busybox cpio -i < ${load_image}
+
 busybox umount /proc
 busybox umount /sys
+
 busybox rm -fr /dev/*
 busybox date >>boot.txt
-
-# image loaded
-busybox cpio -ui < ${load_image}
 export PATH="${_PATH}"
 exec /init
