@@ -24,7 +24,8 @@ import org.cyanogenmod.hardware.util.FileUtils;
  */
 public class HighTouchSensitivity {
 
-    private static String GLOVE_PATH = "/sys/devices/i2c-3/3-0024/main_ttsp_core.cyttsp4_i2c_adapter/finger_threshold";
+    private static String GLOVEFT_PATH = "/sys/devices/i2c-3/3-0024/main_ttsp_core.cyttsp4_i2c_adapter/finger_threshold";
+    private static String GLOVESD_PATH = "/sys/devices/i2c-3/3-0024/main_ttsp_core.cyttsp4_i2c_adapter/signal_disparity";
 
     /**
      * Whether device supports high touch sensitivity.
@@ -32,9 +33,8 @@ public class HighTouchSensitivity {
      * @return boolean Supported devices must return always true
      */
     public static boolean isSupported() {
-        File f = new File(GLOVE_PATH);
-        return f.exists();
-    }
+        return true; 
+	}
 
     /**
      * This method return the current activation status of high touch sensitivity
@@ -43,10 +43,10 @@ public class HighTouchSensitivity {
      * or the operation failed while reading the status; true in any other case.
      */
     public static boolean isEnabled() {
-        int i;
-        i = Integer.parseInt(FileUtils.readOneLine(GLOVE_PATH));
-
-        return i == 1 ? true : false;
+        int i , e;
+        i = Integer.parseInt(FileUtils.readOneLine(GLOVEFT_PATH));
+        e = Integer.parseInt(FileUtils.readOneLine(GLOVESD_PATH));
+        return (i == 20 && e == 0 ? true : false);
     }
 
     /**
@@ -57,7 +57,7 @@ public class HighTouchSensitivity {
      * failed; true in any other case.
      */
     public static boolean setEnabled(boolean status) {
-        return FileUtils.writeLine(GLOVE_PATH, String.valueOf(status ? 1 : 0));
+        return (FileUtils.writeLine(GLOVEFT_PATH, String.valueOf(status ? 20 : 100)) && FileUtils.writeLine(GLOVESD_PATH, String.valueOf(status ? 0 : 1)));
     }
 
 }
