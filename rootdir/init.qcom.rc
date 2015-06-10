@@ -23,11 +23,6 @@ on early-init
     write /sys/block/mmcblk0/queue/read_ahead_kb 512
     write /sys/block/mmcblk1/queue/read_ahead_kb 512
 
-    # enable kernel samepage merging
-    write /sys/kernel/mm/ksm/pages_to_scan 256
-    write /sys/kernel/mm/ksm/sleep_millisecs 1500
-    write /sys/kernel/mm/ksm/run 1
-
 on init
     mkdir /mnt/shell/emulated 0700 shell shell
     mkdir /storage/emulated 0555 root root
@@ -76,6 +71,7 @@ on fs
     # SONY: Start the TrimArea Daemon.
     class_start trimarea
     exec /sbin/wait4tad_static
+    exec /system/bin/taimport
 
     restorecon /data/etc/bluetooth_bdaddr
     restorecon /data/etc/wlan_macaddr0
@@ -216,18 +212,12 @@ on boot
 
 # msm specific files that need to be created on /data
 on post-fs-data
-    # Used by taimport for MAC addresses
-    mkdir /data/etc 0755 root shell
-    start taimport
-    start mac-update
-
     mkdir /data/media 0770 media_rw media_rw
 
-    # Create the directories used by the Wireless subsystem
-    mkdir /data/misc/wifi 0770 wifi wifi
-    mkdir /data/misc/wifi/sockets 0770 wifi wifi
-    mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi
-    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    # Update WIFI MAC address
+    mkdir /data/misc/wifi/prima 0775 wifi wifi
+    exec /system/bin/mac-update
+
     # to observe dnsmasq.leases file for dhcp information of soft ap.
     chown dhcp system /data/misc/dhcp
 
@@ -269,9 +259,6 @@ on post-fs-data
 
     # Create directories for gpsone_daemon services
     mkdir /data/misc/gpsone_d 0770 system gps
-
-    # Update WIFI MAC address
-    mkdir /data/misc/wifi/prima 0775 wifi wifi
 
     # Create directories for QuIPS
     mkdir /data/misc/quipc 0770 gps system
@@ -422,6 +409,12 @@ on charger
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd
 
+# Update WIFI MAC address
+service mac-update /system/bin/mac-update
+    class main
+    user wifi
+    oneshot
+
 #BT service
 service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
     class late_start
@@ -450,20 +443,6 @@ service tad_static /sbin/tad_static /dev/block/mmcblk0 1,16
     socket tad stream 0660 system system
     class trimarea
 
-service taimport /system/bin/taimport
-    class main
-    user root
-    group system
-    disabled
-    oneshot
-
-# Update Wi-Fi MAC address
-service mac-update /system/bin/mac-update
-    class main
-    user wifi
-    disabled
-    oneshot
-
 service updatemiscta /system/bin/updatemiscta
     class main
     user root
@@ -487,31 +466,32 @@ service hw_config /system/bin/sh /system/etc/hw_config.sh
     class main
     user root
     oneshot
-   
-service p2p_supplicant /system/bin/wpa_supplicant \
-    -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf \
-    -I/system/etc/wifi/p2p_supplicant_overlay.conf -N \
-    -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
-    -I/system/etc/wifi/wpa_supplicant_overlay.conf \
-    -puse_p2p_group_interface=1 \
-    -e/data/misc/wifi/entropy.bin -g@android:wpa_wlan0
-#   we will start as root and wpa_supplicant will switch to user wifi
-#   after setting up the capabilities required for WEXT
-#   user wifi
-#   group wifi inet keystore
-    class main
-    socket wpa_wlan0 dgram 660 wifi wifi
-    disabled
-    oneshot
 
 service wpa_supplicant /system/bin/wpa_supplicant \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
     -I/system/etc/wifi/wpa_supplicant_overlay.conf \
+    -O/data/misc/wifi/sockets \
     -e/data/misc/wifi/entropy.bin -g@android:wpa_wlan0
     #   we will start as root and wpa_supplicant will switch to user wifi
     #   after setting up the capabilities required for WEXT
     #   user wifi
     #   group wifi inet keystore
+    class main
+    socket wpa_wlan0 dgram 660 wifi wifi
+    disabled
+    oneshot
+
+service p2p_supplicant /system/bin/wpa_supplicant \
+    -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf \
+    -I/system/etc/wifi/p2p_supplicant_overlay.conf -N \
+    -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
+    -I/system/etc/wifi/wpa_supplicant_overlay.conf \
+    -O/data/misc/wifi/sockets -puse_p2p_group_interface=1 \
+    -e/data/misc/wifi/entropy.bin -g@android:wpa_wlan0
+#   we will start as root and wpa_supplicant will switch to user wifi
+#   after setting up the capabilities required for WEXT
+#   user wifi
+#   group wifi inet keystore
     class main
     socket wpa_wlan0 dgram 660 wifi wifi
     disabled
