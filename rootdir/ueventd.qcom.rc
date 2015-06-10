@@ -170,8 +170,11 @@
 
 # LibAls AS3677
 /sys/devices/i2c-10/10-0040            adc_als_value         0664 system system
+/sys/devices/i2c-10/10-0040            als_lx                0664 system camera
 /sys/devices/i2c-10/10-0040            als_on                0664 system camera
 /sys/devices/i2c-10/10-0040            als_group1            0666 system system
+/sys/devices/i2c-10/10-0040            als_fsm               0666 system system
+/sys/devices/i2c-10/10-0040            als_use_fsm           0666 system system
 /sys/devices/i2c-10/10-0040/leds/lcd-* als_group             0666 system system
 /sys/devices/i2c-10/10-0040/leds/lcd-* brightness            0660 system system
 /sys/devices/i2c-10/10-0040/leds/lcd-* max_brightness        0640 system system

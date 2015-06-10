@@ -31,7 +31,7 @@ char const*const LEDS_COLORS_DELAYON_FILE              = "/sys/class/leds/LED%d_
 char const*const LEDS_COLORS_DELAYOFF_FILE             = "/sys/class/leds/LED%d_%c/delay_off";
 const unsigned int LEDS_COLORS_BRIGHTNESS_MAXIMUM      = 255;
 const unsigned int LEDS_COLORS_CURRENT_CHARGING        = 15;
-const unsigned int LEDS_COLORS_CURRENT_NOTIFICATIONS   = 192;
+const unsigned int LEDS_COLORS_CURRENT_NOTIFICATIONS   = 255;
 const unsigned int LEDS_COLORS_CURRENT_MAXIMUM         = 255;
 
 /* ===================================================================== */
@@ -53,12 +53,3 @@ char const*const LEDS_AUDIO_ENABLE_FILE                = "/sys/devices/i2c-10/10
 const int LEDS_AUDIO_AGC_CTRL                          = 7;
 const int LEDS_AUDIO_AGC_TIME                          = 0;
 const int LEDS_AUDIO_BUF_GAIN                          = 4;
-
-/* ===================================================================== */
-/* === LibAls AS3677 LCD === */
-char const*const AS3677_ALS_LUX_FILE                   = "/sys/devices/i2c-10/10-0040/adc_als_value";
-char const*const AS3677_ALS_ENABLE_FILE                = "/sys/devices/i2c-10/10-0040/als_on";
-char const*const AS3677_ALS_GROUP1_FILE                = "/sys/devices/i2c-10/10-0040/als_group1";
-char const*const AS3677_ALS_LCD1_GROUP_FILE            = "/sys/devices/i2c-10/10-0040/leds/lcd-backlight1/als_group";
-char const*const AS3677_ALS_LCD2_GROUP_FILE            = "/sys/devices/i2c-10/10-0040/leds/lcd-backlight2/als_group";
-char const*const ALS_LCD_LEVELS_GROUP1                 = "60,6,39,89,17,255,0";
