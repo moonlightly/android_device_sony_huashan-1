@@ -9,7 +9,7 @@ ifeq ($(TARGET_DEVICE),huashan)
         ln -sf /data/misc/audio/mbhc.bin \
         $(TARGET_OUT_ETC)/firmware/wcd9310/wcd9310_mbhc.bin)
 
-    $(shell mkdir -p $(TARGET_OUT_ETC)/firmware/wlan/prima; \
+	$(shell mkdir -p $(TARGET_OUT_ETC)/firmware/wlan/prima; \
         ln -sf /data/misc/wifi/prima/WCNSS_qcom_wlan_nv.bin \
         $(TARGET_OUT_ETC)/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin)
 endif
