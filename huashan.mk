@@ -167,10 +167,7 @@ PRODUCT_PACKAGES += \
     camera.sony \
     camera.msm8960 \
     libmmcamera_interface \
-    libmmcamera_interface2 \
-    CameraNext \
-    libjni_mosaic \
-    libjni_tinyplanet
+    libmmcamera_interface2
 
 # Force use old camera api
 PRODUCT_PROPERTY_OVERRIDES += \
