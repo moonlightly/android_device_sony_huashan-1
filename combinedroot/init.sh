@@ -46,6 +46,10 @@ busybox mknod -m 666 /dev/null c 1 3
 busybox mount -t proc proc /proc
 busybox mount -t sysfs sysfs /sys
 
+# keycheck
+busybox echo '50' > /sys/class/timed_output/vibrator/enable
+busybox cat ${BOOTREC_EVENT} > /dev/keycheck&
+
 # LEDs activated
 echo '255' > $LED1_G_BRIGHTNESS_FILE
 echo '255' > $LED2_G_BRIGHTNESS_FILE
@@ -115,10 +119,6 @@ echo '0' > $LED3_R_BRIGHTNESS_FILE
 echo '0' > $LED1_R_CURRENT_FILE
 echo '0' > $LED2_R_CURRENT_FILE
 echo '0' > $LED3_R_CURRENT_FILE
-
-# keycheck
-busybox cat ${BOOTREC_EVENT} > /dev/keycheck&
-busybox sleep 3
 
 # android ramdisk
 load_image=/sbin/ramdisk.cpio
