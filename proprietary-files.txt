@@ -132,6 +132,7 @@ bin/irsc_util
 # Lights
 #
 lib/libsys-utils.so
+lib/libals.so
 
 #
 # Location Services
