@@ -28,10 +28,12 @@ public class HighTouchSensitivity {
     private static final String TAG = "HighTouchSensitivity";
     private static final String GLOVEFT_PATH = "/sys/devices/i2c-3/3-0024/main_ttsp_core.cyttsp4_i2c_adapter/finger_threshold";
     private static final String GLOVESD_PATH = "/sys/devices/i2c-3/3-0024/main_ttsp_core.cyttsp4_i2c_adapter/signal_disparity";
-    private static final String HIGHTOUCHSENSITIVITY_FINGER_TRESHOLD_OFF = "100";
-    private static final String HIGHTOUCHSENSITIVITY_FINGER_TRESHOLD_ON = "20";
+    private static final String HIGHTOUCHSENSITIVITY_FINGER_TRESHOLD_OFF = "280";
+    private static final String HIGHTOUCHSENSITIVITY_FINGER_TRESHOLD_ON = "280";
+    private static final int HIGHTOUCHSENSITIVITY_FINGER_TRESHOLD_ON_READ = 280;
     private static final String HIGHTOUCHSENSITIVITY_SIGNAL_DISPARITY_OFF = "1";
     private static final String HIGHTOUCHSENSITIVITY_SIGNAL_DISPARITY_ON = "0";
+    private static final int HIGHTOUCHSENSITIVITY_SIGNAL_DISPARITY_ON_READ = 0;
 
     /**
      * Whether device supports high touch sensitivity.
@@ -62,7 +64,7 @@ public class HighTouchSensitivity {
         val_ft = Integer.parseInt(FileUtils.readOneLine(GLOVEFT_PATH));
         val_sd = Integer.parseInt(FileUtils.readOneLine(GLOVESD_PATH));
 
-        return (val_ft == 20 && val_sd == 0);
+        return (val_ft == HIGHTOUCHSENSITIVITY_FINGER_TRESHOLD_ON_READ && val_sd == HIGHTOUCHSENSITIVITY_SIGNAL_DISPARITY_ON_READ);
     }
 
     /**
