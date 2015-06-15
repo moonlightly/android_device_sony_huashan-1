@@ -96,6 +96,18 @@ vendor/lib/libqti-perfd-client.so
 lib/libthermalclient.so
 
 #
+# DRM
+#
+lib/liboemcrypto.so
+vendor/lib/drm/libdrmwvmplugin.so
+vendor/lib/mediadrm/libwvdrmengine.so
+vendor/lib/libdrmdecrypt.so
+vendor/lib/libwvdrm_L1.so
+vendor/lib/libwvm.so
+vendor/lib/libWVphoneAPI.so
+vendor/lib/libWVStreamControlAPI_L1.so
+
+#
 # DSP Firmwire
 #
 etc/firmware/dsps.b00

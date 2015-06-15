@@ -186,6 +186,10 @@ PRODUCT_PACKAGES += \
     mac-update \
     wcnss_service
 
+# DRM
+PRODUCT_PROPERTY_OVERRIDES += \
+    drm.service.enabled=true
+
 # Misc
 PRODUCT_PACKAGES += \
     librs_jni \
