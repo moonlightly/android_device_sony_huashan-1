@@ -16,7 +16,6 @@
 
 package org.cyanogenmod.hardware;
 
-import android.util.Log;
 import java.io.File;
 import org.cyanogenmod.hardware.util.FileUtils;
 
@@ -25,15 +24,7 @@ import org.cyanogenmod.hardware.util.FileUtils;
  */
 public class HighTouchSensitivity {
 
-    private static final String TAG = "HighTouchSensitivity";
-    private static final String GLOVEFT_PATH = "/sys/devices/i2c-3/3-0024/main_ttsp_core.cyttsp4_i2c_adapter/finger_threshold";
-    private static final String GLOVESD_PATH = "/sys/devices/i2c-3/3-0024/main_ttsp_core.cyttsp4_i2c_adapter/signal_disparity";
-    private static final String HIGHTOUCHSENSITIVITY_FINGER_TRESHOLD_OFF = "280";
-    private static final String HIGHTOUCHSENSITIVITY_FINGER_TRESHOLD_ON = "280";
-    private static final int HIGHTOUCHSENSITIVITY_FINGER_TRESHOLD_ON_READ = 280;
-    private static final String HIGHTOUCHSENSITIVITY_SIGNAL_DISPARITY_OFF = "1";
-    private static final String HIGHTOUCHSENSITIVITY_SIGNAL_DISPARITY_ON = "0";
-    private static final int HIGHTOUCHSENSITIVITY_SIGNAL_DISPARITY_ON_READ = 0;
+    private static String GLOVE_PATH = "/sys/devices/i2c-3/3-0024/main_ttsp_core.cyttsp4_i2c_adapter/signal_disparity";
 
     /**
      * Whether device supports high touch sensitivity.
@@ -41,15 +32,8 @@ public class HighTouchSensitivity {
      * @return boolean Supported devices must return always true
      */
     public static boolean isSupported() {
-        File f_ft = new File(GLOVEFT_PATH);
-        File f_sd = new File(GLOVESD_PATH);
-
-        if (f_ft.exists() && f_sd.exists()) {
-            return true;
-        } else {
-            Log.e(TAG, "Glove mode / high touch sensitivity is NOT supported (" + Boolean.toString(f_ft.exists()) + " & " + Boolean.toString(f_sd.exists()) + ")");
-            return false;
-        }
+        File f = new File(GLOVE_PATH);
+        return f.exists();
     }
 
     /**
@@ -59,12 +43,10 @@ public class HighTouchSensitivity {
      * or the operation failed while reading the status; true in any other case.
      */
     public static boolean isEnabled() {
-        int val_ft , val_sd;
+        int i;
+        i = Integer.parseInt(FileUtils.readOneLine(GLOVE_PATH));
 
-        val_ft = Integer.parseInt(FileUtils.readOneLine(GLOVEFT_PATH));
-        val_sd = Integer.parseInt(FileUtils.readOneLine(GLOVESD_PATH));
-
-        return (val_ft == HIGHTOUCHSENSITIVITY_FINGER_TRESHOLD_ON_READ && val_sd == HIGHTOUCHSENSITIVITY_SIGNAL_DISPARITY_ON_READ);
+        return i == 1 ? true : false;
     }
 
     /**
@@ -75,14 +57,6 @@ public class HighTouchSensitivity {
      * failed; true in any other case.
      */
     public static boolean setEnabled(boolean status) {
-        if (! FileUtils.writeLine(GLOVESD_PATH, status ? HIGHTOUCHSENSITIVITY_SIGNAL_DISPARITY_ON : HIGHTOUCHSENSITIVITY_SIGNAL_DISPARITY_OFF)) {
-            Log.e(TAG, "Glove mode setEnabled : error writing " + GLOVESD_PATH);
-            return false;
-        }
-        if (! FileUtils.writeLine(GLOVEFT_PATH, status ? HIGHTOUCHSENSITIVITY_FINGER_TRESHOLD_ON : HIGHTOUCHSENSITIVITY_FINGER_TRESHOLD_OFF)) {
-            Log.e(TAG, "Glove mode setEnabled : error writing " + GLOVEFT_PATH);
-            return false;
-        }
-        return true;
+        return FileUtils.writeLine(GLOVE_PATH, String.valueOf(status ? 1 : 0));
     }
 }
