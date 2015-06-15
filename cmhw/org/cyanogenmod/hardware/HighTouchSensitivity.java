@@ -46,7 +46,7 @@ public class HighTouchSensitivity {
         int i;
         i = Integer.parseInt(FileUtils.readOneLine(GLOVE_PATH));
 
-        return i == 1 ? true : false;
+        return i == 0 ? true : false;
     }
 
     /**
@@ -57,6 +57,6 @@ public class HighTouchSensitivity {
      * failed; true in any other case.
      */
     public static boolean setEnabled(boolean status) {
-        return FileUtils.writeLine(GLOVE_PATH, String.valueOf(status ? 1 : 0));
+        return FileUtils.writeLine(GLOVE_PATH, String.valueOf(status ? 0 : 1));
     }
 }
