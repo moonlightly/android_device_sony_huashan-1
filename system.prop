@@ -15,5 +15,6 @@ persist.gps.qmienabled=true
 
 # FM radio
 hw.fm.internal_antenna=true
+ro.fm.transmitter=true
 
 ro.sf.lcd_density=320
